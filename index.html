@@ -365,6 +365,14 @@ $("go").onclick = async () => {
 };
 
 renderList(); update();
+
+// Si el programa está dentro de otra página (Claro), le avisa su alto para que el marco se ajuste solo.
+(function () {
+  if (window.parent === window) return;
+  const send = () => window.parent.postMessage({ iecoConsentHeight: document.documentElement.scrollHeight }, "*");
+  try { new ResizeObserver(send).observe(document.body); } catch (e) {}
+  window.addEventListener("load", send); setTimeout(send, 500);
+})();
 </script>
 
 </body>
