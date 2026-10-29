@@ -120,7 +120,13 @@ dd.miss { color: var(--err); }
 .pads { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
 .pad { display: grid; gap: 6px; min-width: 0; }
 .pad > span { font: 600 .74rem/1.2 var(--display); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
-.pad .box { position: relative; border: 1.5px dashed var(--line); border-radius: 8px; background: #ffffff; height: 160px; touch-action: none; overflow: hidden; }
+.pad .box { position: relative; border: 1.5px dashed var(--line); border-radius: 8px; background: #ffffff; aspect-ratio: 2 / 1; width: 100%; touch-action: none; overflow: hidden; }
+.pad .box.full { position: fixed; z-index: 50; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(94vw, 176vh); max-width: none; border: 2px solid var(--accent); box-shadow: 0 0 0 100vmax rgba(20, 28, 30, .72); }
+.pad .box.full .ph { font-size: 1rem; }
+.fullbar { position: fixed; z-index: 51; left: 50%; transform: translateX(-50%); bottom: max(16px, env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; }
+.fullbar button { font: 600 1rem/1 var(--display); border-radius: 8px; padding: 12px 18px; cursor: pointer; border: 0; }
+.fullbar .ok { background: var(--accent); color: var(--surface); }
+.fullbar .no { background: var(--surface); color: var(--fg); border: 1px solid var(--line); }
 .pad .box.signed { border-style: solid; border-color: var(--accent); }
 .pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; touch-action: none; }
 .pad .base { position: absolute; left: 14px; right: 14px; bottom: 34px; border-bottom: 1px solid #b9c4c1; pointer-events: none; }
@@ -211,12 +217,12 @@ dd.miss { color: var(--err); }
         <div class="pad">
           <span id="lblPac">Firma del paciente</span>
           <div class="box" id="boxPac"><div class="base"></div><div class="ph">Firme aquí con la tableta, el lápiz o el dedo</div><canvas id="cvPac" aria-label="Recuadro de firma del paciente"></canvas></div>
-          <div class="row"><small id="stPac">Sin firma</small><button type="button" class="mini" data-clear="Pac">Borrar firma</button></div>
+          <div class="row"><small id="stPac">Sin firma</small><span style="display:flex;gap:6px"><button type="button" class="mini" data-big="Pac">Firmar en grande</button><button type="button" class="mini" data-clear="Pac">Borrar firma</button></span></div>
         </div>
         <div class="pad">
           <span>Firma del profesional</span>
           <div class="box" id="boxPro"><div class="base"></div><div class="ph">Firme aquí con la tableta, el lápiz o el dedo</div><canvas id="cvPro" aria-label="Recuadro de firma del profesional"></canvas></div>
-          <div class="row"><small id="stPro">Sin firma</small><button type="button" class="mini" data-clear="Pro">Borrar firma</button></div>
+          <div class="row"><small id="stPro">Sin firma</small><span style="display:flex;gap:6px"><button type="button" class="mini" data-big="Pro">Firmar en grande</button><button type="button" class="mini" data-clear="Pro">Borrar firma</button></span></div>
         </div>
       </div>
       <p class="hint" style="margin:0">Las firmas son opcionales: si se dejan en blanco, el PDF sale para firmar a mano. Cuando hay al menos una firma, el PDF se descarga cerrado para que no se pueda modificar.</p>
@@ -237,6 +243,7 @@ dd.miss { color: var(--err); }
     <p class="note"><mark>Privacidad</mark> Los datos del paciente no se guardan ni se envían: el documento se arma en este navegador y se borra al cerrar la página.</p>
   </aside>
 </main>
+<div class="fullbar" id="fullbar" hidden><button type="button" class="no" id="fbClear">Borrar y repetir</button><button type="button" class="ok" id="fbOk">Listo</button></div>
 
 <script src="pdf-lib.min.js"></script>
 <script>
@@ -348,18 +355,21 @@ function makePad(key) {
     draw();
   }
   function draw() {
-    const d = window.devicePixelRatio || 1;
-    ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+    const d = window.devicePixelRatio || 1, W = cv.width / d, H = cv.height / d, k = W / 330;
+    ctx.setTransform(d * W, 0, 0, d * H, 0, 0); ctx.clearRect(0, 0, 1, 1);
+    ctx.save(); ctx.setTransform(d, 0, 0, d, 0, 0);
+    const X = q => q.x * W, Y = q => q.y * H;
     ctx.strokeStyle = "#0b2a5b"; ctx.lineCap = "round"; ctx.lineJoin = "round";
     for (const s of strokes) {
       for (let i = 1; i < s.length; i++) {
-        ctx.lineWidth = 1.4 + 2.2 * (s[i].p || .5);
-        ctx.beginPath(); ctx.moveTo(s[i - 1].x, s[i - 1].y); ctx.lineTo(s[i].x, s[i].y); ctx.stroke();
+        ctx.lineWidth = (1.4 + 2.2 * (s[i].p || .5)) * k;
+        ctx.beginPath(); ctx.moveTo(X(s[i - 1]), Y(s[i - 1])); ctx.lineTo(X(s[i]), Y(s[i])); ctx.stroke();
       }
-      if (s.length === 1) { ctx.beginPath(); ctx.arc(s[0].x, s[0].y, 1.5, 0, 7); ctx.fillStyle = "#0b2a5b"; ctx.fill(); }
+      if (s.length === 1) { ctx.beginPath(); ctx.arc(X(s[0]), Y(s[0]), 1.5 * k, 0, 7); ctx.fillStyle = "#0b2a5b"; ctx.fill(); }
     }
+    ctx.restore();
   }
-  const pt = e => { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top, p: e.pressure && e.pointerType === "pen" ? e.pressure : .5 }; };
+  const pt = e => { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height, p: e.pressure && e.pointerType === "pen" ? e.pressure : .5 }; };
   cv.addEventListener("pointerdown", e => { e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = [pt(e)]; strokes.push(cur); draw(); });
   cv.addEventListener("pointermove", e => {
     if (!cur) return; e.preventDefault();
@@ -377,19 +387,22 @@ function makePad(key) {
   }
   new ResizeObserver(size).observe(cv); size();
   return {
+    box, redraw: size,
     has: () => strokes.length > 0,
     clear() { strokes = []; draw(); changed(); },
     data: () => JSON.stringify(strokes),
-    load(json) { try { strokes = JSON.parse(json) || []; } catch (e) { strokes = []; } draw(); box.classList.toggle("signed", strokes.length > 0); $("st" + key).textContent = strokes.length ? "Firmado (guardada en este equipo)" : "Sin firma"; },
+    load(json) { try { strokes = JSON.parse(json) || []; } catch (e) { strokes = []; } if (strokes.flat().some(q => q.x > 1.5 || q.y > 1.5)) strokes = []; draw(); box.classList.toggle("signed", strokes.length > 0); $("st" + key).textContent = strokes.length ? "Firmado (guardada en este equipo)" : "Sin firma"; },
     // imagen PNG recortada a la firma, con fondo transparente
     png() {
-      const pts = strokes.flat(); if (!pts.length) return null;
+      const RW = 330, RH = 165;
+      const S = strokes.map(s => s.map(q => ({ x: q.x * RW, y: q.y * RH, p: q.p })));
+      const pts = S.flat(); if (!pts.length) return null;
       const pad = 6, xs = pts.map(p => p.x), ys = pts.map(p => p.y);
       const x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, w = Math.max(...xs) - x0 + pad, h = Math.max(...ys) - y0 + pad;
       const k = 3, c = document.createElement("canvas"); c.width = Math.ceil(w * k); c.height = Math.ceil(h * k);
       const g = c.getContext("2d"); g.scale(k, k); g.translate(-x0, -y0);
       g.strokeStyle = "#0b2a5b"; g.fillStyle = "#0b2a5b"; g.lineCap = "round"; g.lineJoin = "round";
-      for (const s of strokes) {
+      for (const s of S) {
         for (let i = 1; i < s.length; i++) { g.lineWidth = 1.4 + 2.2 * (s[i].p || .5); g.beginPath(); g.moveTo(s[i - 1].x, s[i - 1].y); g.lineTo(s[i].x, s[i].y); g.stroke(); }
         if (s.length === 1) { g.beginPath(); g.arc(s[0].x, s[0].y, 1.5, 0, 7); g.fill(); }
       }
@@ -399,6 +412,33 @@ function makePad(key) {
 }
 const pads = { Pac: makePad("Pac"), Pro: makePad("Pro") };
 document.addEventListener("click", e => { const b = e.target.closest("[data-clear]"); if (b) pads[b.dataset.clear].clear(); });
+// firmar en grande: el recuadro ocupa casi toda la pantalla, para aprovechar toda la tableta de firma
+let bigKey = null;
+function closeBig() {
+  if (!bigKey) return;
+  const box = pads[bigKey].box; box.classList.remove("full"); box.style.width = ""; box.style.top = "";
+  $("fullbar").hidden = true; $("fullbar").style.top = ""; $("fullbar").style.bottom = "";
+  const k = bigKey; bigKey = null; document.body.style.overflow = "";
+  requestAnimationFrame(() => pads[k].redraw());
+}
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-big]"); if (!b) return;
+  bigKey = b.dataset.big;
+  const box = pads[bigKey].box, bar = $("fullbar"), r = box.getBoundingClientRect();
+  box.classList.add("full"); bar.hidden = false;
+  if (window.parent !== window) {
+    // dentro de la página de IECO el marco es tan alto como el programa: se ubica donde está el recuadro
+    const w = Math.min(window.innerWidth * 0.94, 1000), h = w / 2, cy = r.top + r.height / 2;
+    Object.assign(box.style, { width: w + "px", top: Math.max(h / 2 + 8, cy) + "px" });
+    Object.assign(bar.style, { bottom: "auto", top: (Math.max(h / 2 + 8, cy) + h / 2 + 12) + "px" });
+  } else {
+    document.body.style.overflow = "hidden";
+  }
+  requestAnimationFrame(() => pads[bigKey].redraw());
+});
+$("fbOk").onclick = closeBig;
+$("fbClear").onclick = () => bigKey && pads[bigKey].clear();
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeBig(); });
 function saveProSig() {
   try { if ($("rec").checked && pads.Pro) localStorage.setItem("ieco-firma-profesional", pads.Pro.data()); } catch (e) {}
 }
@@ -530,10 +570,10 @@ $("go").onclick = async () => {
       const img = pad.png(); if (!img) continue;
       const line = m.sigs.find(s => s.sec === state.mode && s.who === who); if (!line) continue;
       const png = await pdf.embedPng(img.url);
-      const maxW = (line.x1 - line.x0) * 0.85, maxH = 34;
+      const maxW = (line.x1 - line.x0) * 0.8, maxH = 26;
       let h = maxH, w = h * img.ratio; if (w > maxW) { w = maxW; h = w / img.ratio; }
       const page = pdf.getPage(line.page);
-      page.drawImage(png, { x: line.x0 + (line.x1 - line.x0 - w) / 2, y: line.h - line.y + 1, width: w, height: h });
+      page.drawImage(png, { x: line.x0 + (line.x1 - line.x0 - w) / 2, y: line.h - line.y - 3, width: w, height: h });
       signed = true;
     }
     // con firmas: todos los campos quedan de solo lectura para que el documento firmado no se modifique
