@@ -103,8 +103,11 @@ input:focus-visible, select:focus-visible, button:focus-visible, .doc:focus-visi
 /* firmas */
 .slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
 .slot { display: grid; gap: 8px; min-width: 0; }
-.slot .prev { height: 110px; border: 1.5px dashed var(--line); border-radius: 8px; background: #ffffff; display: grid; place-items: center; position: relative; overflow: hidden; }
+.slot .prev { cursor: pointer; height: 110px; border: 1.5px dashed var(--line); border-radius: 8px; background: #ffffff; display: grid; place-items: center; position: relative; overflow: hidden; }
 .slot .prev.done { border-style: solid; border-color: var(--brand-ink); }
+.slot .prev:hover, .slot .prev:focus-visible { border-color: var(--brand-ink); background: #f7fcfc; outline: none; }
+.slot .prev:focus-visible { box-shadow: 0 0 0 2px var(--brand-ink); }
+.saved { color: var(--ok); font-size: .85rem; align-self: center; }
 .slot .prev img { max-height: 84px; max-width: 90%; }
 .slot .prev .base { position: absolute; left: 16px; right: 16px; bottom: 18px; border-bottom: 1px solid #c2ccca; }
 .slot .prev .ph { color: #8a9593; font-size: .85rem; }
@@ -225,29 +228,25 @@ dd.miss { color: var(--err); font-weight: 500; }
         <label class="f"><span class="req">Tipo de documento</span><select id="dTipo"></select></label>
         <label class="f"><span class="req">Número de documento</span><input type="text" id="dNum" inputmode="numeric"></label>
       </div>
-      <label class="check"><input type="checkbox" id="rec"> Recordar mis datos y mi firma de profesional en este equipo</label>
+      <label class="check"><input type="checkbox" id="rec"> Recordar mis datos de profesional en este equipo</label>
     </section>
 
     <section class="step" aria-labelledby="h5">
       <h2 id="h5"><span class="n">PASO 5</span>Firmas</h2>
-      <div id="modeWrap" class="seg" role="group" aria-label="Qué se firma">
-        <button type="button" id="mAut" aria-pressed="true">Autoriza el procedimiento</button>
-        <button type="button" id="mRev" aria-pressed="false">Revoca (no acepta)</button>
-      </div>
-      <p class="hint" id="modeHint">Los datos y firmas van en la sección AUTORIZACIÓN del consentimiento.</p>
+      <p class="hint" style="margin:0">Toque el recuadro blanco para firmar. Las firmas van en la sección AUTORIZACIÓN del consentimiento.</p>
       <div class="slots">
         <div class="slot">
           <span class="lbl req" id="lblPac">Firma del paciente</span>
-          <div class="prev" id="prevPac"><div class="base"></div><span class="ph">Sin firma</span></div>
-          <div class="row"><button type="button" class="btn" data-sign="Pac">Firmar</button><button type="button" class="btn light" data-clear="Pac">Borrar</button></div>
+          <div class="prev" id="prevPac" data-sign="Pac" role="button" tabindex="0" aria-label="Firmar: paciente"><div class="base"></div><span class="ph">Toque aquí para firmar</span></div>
+          <div class="row"><button type="button" class="btn light" data-clear="Pac">Borrar firma</button></div>
         </div>
         <div class="slot">
           <span class="lbl req">Firma del profesional</span>
-          <div class="prev" id="prevPro"><div class="base"></div><span class="ph">Sin firma</span></div>
-          <div class="row"><button type="button" class="btn" data-sign="Pro">Firmar</button><button type="button" class="btn light" data-clear="Pro">Borrar</button></div>
+          <div class="prev" id="prevPro" data-sign="Pro" role="button" tabindex="0" aria-label="Firmar: profesional"><div class="base"></div><span class="ph">Toque aquí para firmar</span></div>
+          <div class="row"><button type="button" class="btn light" data-clear="Pro">Borrar firma</button><button type="button" class="btn" id="saveProBtn">Guardar firma</button><span class="saved" id="savedTxt" hidden>Firma guardada en este equipo</span></div>
         </div>
       </div>
-      <p class="hint" style="margin:0">Al firmar puede escribir el nombre, dibujar la firma con la tableta o cargar una imagen de la firma. El PDF firmado se descarga cerrado para que no se pueda modificar.</p>
+      <p class="hint" style="margin:0">Al firmar puede escribir el nombre, dibujar la firma con la tableta o cargar una imagen. El profesional puede guardar su firma en este equipo para no repetirla. El PDF firmado se descarga cerrado para que no se pueda modificar.</p>
     </section>
   </form>
 
@@ -294,7 +293,6 @@ dd.miss { color: var(--err); font-weight: 500; }
       </div>
     </div>
     <div class="bottom">
-      <label class="check" id="saveWrap"><input type="checkbox" id="saveSig"> Guardar la firma en este equipo</label>
       <span></span>
       <div class="right"><button type="button" class="btn light" id="mClear">Borrar</button><button type="button" class="btn light" id="mCancel">Cancelar</button><button type="button" class="btn" id="mApply">Aplicar</button></div>
     </div>
@@ -366,8 +364,6 @@ function renderDoc() {
     return `<div class="prow${ts.length ? "" : " solo"}" data-row="${c.name}"><label class="pc"><input type="checkbox" data-f="${c.name}"><span>${esc(clean(c.label))}</span></label>${ts.length ? `<div style="display:grid;gap:6px">${inputs}</div>` : ""}</div>`;
   }).join("");
   $("tratWrap").hidden = !m.hasTrat;
-  $("modeWrap").hidden = !m.hasRev;
-  if (!m.hasRev) setMode("autoriza");
 }
 $("proc").addEventListener("input", e => {
   const row = e.target.closest(".prow"); if (!row) return;
@@ -384,18 +380,7 @@ function procValues() {
   return { checks, texts };
 }
 
-// ---------- autoriza / revoca y quién firma ----------
-function setMode(m) {
-  state.mode = m;
-  $("mAut").setAttribute("aria-pressed", m === "autoriza");
-  $("mRev").setAttribute("aria-pressed", m === "revoca");
-  $("modeHint").textContent = m === "autoriza"
-    ? "Los datos y firmas van en la sección AUTORIZACIÓN del consentimiento."
-    : "Los datos y firmas van en la sección REVOCACIÓN: el paciente no acepta el procedimiento.";
-  update();
-}
-$("mAut").onclick = () => setMode("autoriza");
-$("mRev").onclick = () => setMode("revoca");
+// ---------- quién firma ----------
 function setFirma(v) {
   state.firma = v;
   $("fPac").setAttribute("aria-pressed", v === "paciente");
@@ -418,8 +403,7 @@ const store = {
 function saveDoc() {
   if ($("rec").checked) {
     store.set("ieco-profesional", JSON.stringify(Object.fromEntries(DOC_KEYS.map(k => [k, $(k).value]))));
-    if (sigs.Pro) store.set("ieco-firma-pro", JSON.stringify(sigs.Pro));
-  } else { store.del("ieco-profesional"); store.del("ieco-firma-pro"); }
+  } else { store.del("ieco-profesional"); }
 }
 $("rec").addEventListener("change", saveDoc);
 try {
@@ -472,7 +456,6 @@ function openSign(key, btn) {
   $("imgPrev").hidden = true; $("imgHint").hidden = false; $("imgFile").value = "";
   $("mTitle").textContent = key === "Pro" ? "Firma del profesional" : (state.firma === "paciente" ? "Firma del paciente" : "Firma del responsable");
   $("typedName").value = key === "Pro" ? $("dNom").value.trim() : (state.firma === "paciente" ? $("pNom").value.trim() : $("rNom").value.trim());
-  $("saveWrap").hidden = key !== "Pro"; $("saveSig").checked = $("rec").checked;
   const m = $("modal"); m.hidden = false;
   if (inFrame) {
     // dentro de la página de IECO el marco es tan alto como el programa: la ventana se abre a la altura del botón
@@ -486,9 +469,17 @@ function closeSign() { $("modal").hidden = true; who = null; }
 document.addEventListener("click", e => {
   const s = e.target.closest("[data-sign]"); if (s) openSign(s.dataset.sign, s);
   const c = e.target.closest("[data-clear]"); if (c) { sigs[c.dataset.clear] = null; if (c.dataset.clear === "Pro") store.del("ieco-firma-pro"); renderSigs(); update(); }
+  if (e.target.closest("#saveProBtn")) {
+    if (!sigs.Pro) { openSign("Pro", $("prevPro")); return; }
+    store.set("ieco-firma-pro", JSON.stringify(sigs.Pro)); renderSigs();
+  }
 });
 $("mX").onclick = closeSign; $("mCancel").onclick = closeSign;
-document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("modal").hidden) closeSign(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && !$("modal").hidden) closeSign();
+  const s = e.target.closest && e.target.closest(".prev[data-sign]");
+  if (s && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openSign(s.dataset.sign, s); }
+});
 $("mClear").onclick = () => {
   if (tab === "dibujar") { strokes = []; drawStrokes(); }
   if (tab === "texto") { $("typedName").value = ""; $("typedName").focus(); }
@@ -558,18 +549,18 @@ $("mApply").onclick = async () => {
     setTimeout(() => $("mApply").textContent = "Aplicar", 1600); return;
   }
   sigs[who] = s;
-  if (who === "Pro") {
-    if ($("saveSig").checked) { $("rec").checked = true; saveDoc(); } else store.del("ieco-firma-pro");
-  }
+  if (who === "Pro") { store.del("ieco-firma-pro"); }
   closeSign(); renderSigs(); update();
 };
 function renderSigs() {
   for (const k of ["Pac", "Pro"]) {
     const box = $("prev" + k), s = sigs[k];
     box.classList.toggle("done", !!s);
-    box.innerHTML = `<div class="base"></div>` + (s ? `<img src="${s.url}" alt="Firma">` : `<span class="ph">Sin firma</span>`);
+    box.innerHTML = `<div class="base"></div>` + (s ? `<img src="${s.url}" alt="Firma">` : `<span class="ph">Toque aquí para firmar</span>`);
     box.classList.toggle("bad", state.tried && !s);
   }
+  const saved = !!sigs.Pro && store.get("ieco-firma-pro") === JSON.stringify(sigs.Pro);
+  $("savedTxt").hidden = !saved; $("saveProBtn").hidden = saved;
 }
 
 // ---------- valores para el PDF ----------
@@ -643,7 +634,6 @@ function update() {
     row("Profesional", x.Profesional_que_explica) +
     row("Registro", v("dReg")) +
     (man().extra.length ? row("Procedimientos", n ? `${n} marcado${n > 1 ? "s" : ""}` : "") : "") +
-    row("Sección", state.mode === "revoca" ? "Revocación" : "Autorización", false) +
     row("Firmas", sigs.Pac && sigs.Pro ? "Completas" : [sigs.Pac ? "Paciente" : "", sigs.Pro ? "Profesional" : ""].filter(Boolean).join(" ") ? `Falta ${!sigs.Pac ? "paciente" : "profesional"}` : "");
   // las firmas: fila especial
   const dds = $("dl").querySelectorAll("dd"); const last = dds[dds.length - 1];
@@ -657,10 +647,10 @@ $("frm").addEventListener("submit", e => e.preventDefault());
 
 $("nuevo").onclick = () => {
   for (const id of ["pNom", "pNum", "rNom", "rNum", "rPar", "trat"]) $(id).value = "";
-  $("pTipo").value = "CC"; $("rTipo").value = "CC"; setFirma("paciente"); setMode("autoriza");
+  $("pTipo").value = "CC"; $("rTipo").value = "CC"; setFirma("paciente");
   for (const el of $("proc").querySelectorAll("input")) { if (el.type === "checkbox") el.checked = false; else el.value = ""; }
   for (const r of $("proc").querySelectorAll(".prow")) r.classList.remove("on");
-  sigs.Pac = null; if (!$("rec").checked) sigs.Pro = null;
+  sigs.Pac = null; if (!(sigs.Pro && store.get("ieco-firma-pro") === JSON.stringify(sigs.Pro))) sigs.Pro = null;
   $("okDatos").checked = false; state.tried = false; nowFields(false);
   renderSigs(); update();
   $("msg").className = "msg ok"; $("msg").textContent = "Listo para el siguiente paciente."; $("pNom").focus();
@@ -700,7 +690,7 @@ $("go").onclick = async () => {
     }
     for (const f of form.getFields()) { try { f.enableReadOnly(); } catch (e) {} }
     const bytes = await pdf.save();
-    const name = `${fileSafe(nice(c.title))} - ${fileSafe(v("pNom"))} - ${fecha().replaceAll("/", "-")}${state.mode === "revoca" ? " - REVOCACION" : ""}.pdf`;
+    const name = `${fileSafe(nice(c.title))} - ${fileSafe(v("pNom"))} - ${fecha().replaceAll("/", "-")}.pdf`;
     const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
     const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
