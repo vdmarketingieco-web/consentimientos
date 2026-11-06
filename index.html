@@ -6,34 +6,36 @@
 <title>Consentimientos IECO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&family=Dancing+Script:wght@600&display=swap">
 <style>
-/* Layout: banda de marca arriba; a la izquierda los 4 pasos en orden, a la derecha un resumen fijo con el botón de descarga. */
+/* Layout: banda institucional azul claro; a la izquierda los 5 pasos en orden, a la derecha el resumen con el aviso de responsabilidad y la descarga. */
 :root {
-  --bg: #f4f6f4;
+  --bg: #f3f5f4;             /* derivado del crema institucional (Pantone 2330U) */
   --surface: #ffffff;
-  --line: #d6dfdc;
-  --fg: #2f3537;
-  --muted: #66716f;
-  --brand: #a8ccc8;          /* verde-azul del logo IECO */
-  --accent: #2f6f69;         /* el mismo tono, oscurecido para texto y botones */
-  --accent-soft: #e3efed;
-  --band: #42494b;           /* gris carbón de la paleta institucional */
-  --band-fg: #f2f4f3;
-  --mark: #ffeb66;           /* amarillo institucional, solo para resaltar */
+  --line: #d3dcda;
+  --fg: #42494b;             /* gris carbón institucional (Pantone 5405U) */
+  --muted: #6b7577;
+  --brand: #72cfcb;          /* azul claro institucional (Pantone 544U), el de la página web */
+  --brand-ink: #1d6f6b;      /* el mismo tono oscurecido para textos y bordes activos */
+  --brand-soft: #e2f4f3;
+  --cta: #42494b;            /* botón principal en carbón, como en la marca */
+  --cta-fg: #ffffff;
+  --mark: #ffeb66;           /* amarillo institucional (Pantone 1205U) */
   --ok: #2e7d4f;
   --err: #b3402f;
+  --err-soft: #fbeae7;
   --display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
   --body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  --script: "Dancing Script", "Segoe Script", cursive;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #1b2122; --surface: #242c2d; --line: #364244; --fg: #e4ebe9; --muted: #9db0ad;
-  --brand: #a8ccc8; --accent: #8cc4bd; --accent-soft: #2b3b3b; --band: #12181a; --band-fg: #e4ebe9;
-  --mark: #e8d64e; --ok: #6fc796; --err: #f08a78; color-scheme: dark } }
+  --brand: #72cfcb; --brand-ink: #8fdcd8; --brand-soft: #22393a; --cta: #72cfcb; --cta-fg: #1b2122;
+  --mark: #e8d64e; --ok: #6fc796; --err: #f08a78; --err-soft: #3a2522; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #1b2122; --surface: #242c2d; --line: #364244; --fg: #e4ebe9; --muted: #9db0ad;
-  --brand: #a8ccc8; --accent: #8cc4bd; --accent-soft: #2b3b3b; --band: #12181a; --band-fg: #e4ebe9;
-  --mark: #e8d64e; --ok: #6fc796; --err: #f08a78; color-scheme: dark }
+  --brand: #72cfcb; --brand-ink: #8fdcd8; --brand-soft: #22393a; --cta: #72cfcb; --cta-fg: #1b2122;
+  --mark: #e8d64e; --ok: #6fc796; --err: #f08a78; --err-soft: #3a2522; color-scheme: dark }
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -42,113 +44,133 @@ img { max-width: 100%; }
 body { background: var(--bg); color: var(--fg); font: 400 15px/1.5 var(--body); }
 .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
-header.band { background: var(--band); color: var(--band-fg); }
+header.band { background: var(--brand); color: #ffffff; }
 header .wrap { display: flex; align-items: center; gap: 18px; padding-block: 18px; flex-wrap: wrap; }
-header img { width: 84px; height: auto; }
+header img { width: 92px; height: auto; }
 header .t { display: grid; gap: 2px; min-width: 0; }
-header h1 { margin: 0; font: 600 1.6rem/1.15 var(--display); letter-spacing: .01em; text-wrap: balance; }
-header p { margin: 0; color: color-mix(in srgb, var(--band-fg) 72%, transparent); font-size: .92rem; }
+header h1 { margin: 0; font: 600 1.65rem/1.15 var(--display); letter-spacing: .01em; text-wrap: balance; color: #ffffff; text-shadow: 0 1px 0 rgba(29,111,107,.25); }
+header p { margin: 0; color: #22494a; font-size: .95rem; font-weight: 500; }
+.stripe { height: 5px; background: var(--fg); }
 
-main.wrap { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; padding-block: 28px 48px; align-items: start; }
-@media (max-width: 860px) { main.wrap { grid-template-columns: minmax(0, 1fr); } }
+main.wrap { display: grid; grid-template-columns: minmax(0, 1fr) 350px; gap: 28px; padding-block: 28px 48px; align-items: start; }
+@media (max-width: 880px) { main.wrap { grid-template-columns: minmax(0, 1fr); } }
 
 .steps { display: grid; gap: 18px; min-width: 0; }
-section.step { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
+section.step { background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--brand); border-radius: 10px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
 .step h2 { margin: 0; display: flex; align-items: baseline; gap: 10px; font: 600 1.15rem/1.2 var(--display); }
-.step h2 .n { font: 700 .8rem/1 var(--display); letter-spacing: .08em; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 5px 9px; }
+.step h2 .n { font: 700 .78rem/1 var(--display); letter-spacing: .08em; color: var(--fg); background: var(--brand-soft); border-radius: 999px; padding: 5px 9px; }
 .hint { margin: -6px 0 0; color: var(--muted); font-size: .88rem; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px 14px; }
 .grid .wide { grid-column: 1 / -1; }
 label.f { display: grid; gap: 5px; min-width: 0; }
-label.f > span { font: 600 .74rem/1.2 var(--display); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+label.f > span, .lbl { font: 600 .74rem/1.2 var(--display); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.req::after { content: " *"; color: var(--err); }
 input[type=text], input[type=date], input[type=time], input[type=search], select {
   width: 100%; font: 400 1rem/1.3 var(--body); color: var(--fg); background: var(--bg);
   border: 1px solid var(--line); border-radius: 7px; padding: 9px 11px; min-width: 0; }
-input:focus-visible, select:focus-visible, button:focus-visible, .doc:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-input.bad { border-color: var(--err); }
+input:focus-visible, select:focus-visible, button:focus-visible, .doc:focus-visible { outline: 2px solid var(--brand-ink); outline-offset: 2px; }
+.bad, input.bad, select.bad { border-color: var(--err) !important; background: var(--err-soft) !important; }
 
-/* selector de consentimiento */
 .picker { display: grid; gap: 10px; min-width: 0; }
 .areas { display: flex; gap: 6px; flex-wrap: wrap; }
 .chip { font: 500 .82rem/1 var(--body); border: 1px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 7px 11px; cursor: pointer; }
-.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.chip[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--surface); }
 .list { max-height: 330px; overflow-y: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
-.grp { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 6px 12px; font: 600 .72rem/1.3 var(--display); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.list.bad { border-width: 2px; }
+.grp { position: sticky; top: 0; background: var(--surface); border-bottom: 1px solid var(--line); padding: 6px 12px; font: 600 .72rem/1.3 var(--display); letter-spacing: .07em; text-transform: uppercase; color: var(--brand-ink); }
 .doc { display: flex; justify-content: space-between; gap: 10px; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--fg); font: 400 .95rem/1.35 var(--body); padding: 9px 12px; cursor: pointer; }
-.doc:hover { background: var(--accent-soft); }
-.doc[aria-selected="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); font-weight: 600; }
+.doc:hover { background: var(--brand-soft); }
+.doc[aria-selected="true"] { background: var(--brand-soft); box-shadow: inset 4px 0 0 var(--brand); font-weight: 600; }
 .doc small { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .empty { padding: 16px 12px; color: var(--muted); }
 
-.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; }
+.proc { display: grid; gap: 8px; min-width: 0; }
+.prow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 190px); gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); }
+.prow.solo { grid-template-columns: minmax(0, 1fr); }
+.prow.on { border-color: var(--brand-ink); background: var(--brand-soft); }
+.prow label.pc { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; min-width: 0; }
+.prow input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--brand-ink); flex: none; }
+.prow input[type=text] { padding: 7px 9px; font-size: .92rem; }
+@media (max-width: 520px) { .prow { grid-template-columns: minmax(0, 1fr); } }
+
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex-wrap: wrap; justify-self: start; }
 .seg button { border: 0; background: var(--bg); color: var(--fg); font: 500 .92rem/1 var(--body); padding: 10px 14px; cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
-.check { display: flex; gap: 8px; align-items: center; font-size: .9rem; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--surface); }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; color: var(--muted); }
+.check input { margin-top: 3px; accent-color: var(--brand-ink); }
+
+/* firmas */
+.slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.slot { display: grid; gap: 8px; min-width: 0; }
+.slot .prev { height: 110px; border: 1.5px dashed var(--line); border-radius: 8px; background: #ffffff; display: grid; place-items: center; position: relative; overflow: hidden; }
+.slot .prev.done { border-style: solid; border-color: var(--brand-ink); }
+.slot .prev img { max-height: 84px; max-width: 90%; }
+.slot .prev .base { position: absolute; left: 16px; right: 16px; bottom: 18px; border-bottom: 1px solid #c2ccca; }
+.slot .prev .ph { color: #8a9593; font-size: .85rem; }
+.slot .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { border: 0; border-radius: 8px; background: var(--fg); color: var(--surface); font: 600 .95rem/1 var(--display); letter-spacing: .02em; padding: 11px 16px; cursor: pointer; }
+.btn.light { background: transparent; color: var(--fg); border: 1px solid var(--line); font-weight: 500; }
+
+/* ventana de firma, al estilo de "Rellenar y firmar" */
+.modal { position: fixed; inset: 0; z-index: 60; background: rgba(24, 30, 31, .62); display: grid; place-items: center; padding: 16px; }
+.modal.inframe { place-items: start center; }
+.dlg { width: min(940px, 100%); background: var(--surface); color: var(--fg); border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.35); display: grid; grid-template-rows: auto auto 1fr auto; overflow: hidden; }
+.dlg .top { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--brand-soft); }
+.dlg .top b { font: 600 1.1rem/1.2 var(--display); }
+.tabs { display: flex; justify-content: center; gap: 6px; padding: 10px; border-bottom: 1px solid var(--line); }
+.tab { display: grid; justify-items: center; gap: 3px; border: 0; background: transparent; color: var(--muted); font: 600 .85rem/1 var(--display); letter-spacing: .03em; padding: 8px 16px; border-bottom: 3px solid transparent; cursor: pointer; }
+.tab svg { width: 22px; height: 22px; }
+.tab[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--brand); }
+.area { padding: 16px 18px; }
+.canvasBox { position: relative; width: 100%; aspect-ratio: 2.4 / 1; background: #ffffff; border: 1.5px solid var(--brand); border-radius: 8px; overflow: hidden; touch-action: none; }
+.canvasBox canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
+.canvasBox .base { position: absolute; left: 4%; right: 4%; bottom: 26%; border-bottom: 1.5px solid #9fb3b1; pointer-events: none; }
+.canvasBox .ph { position: absolute; left: 0; right: 0; bottom: 30%; text-align: center; font-size: 1.6rem; color: #a7b2b0; pointer-events: none; font-family: var(--body); }
+.typed { position: absolute; left: 0; right: 0; bottom: 26%; display: flex; justify-content: center; }
+.typed input { width: 92%; border: 0; background: transparent; text-align: center; font: 600 3.2rem/1.1 var(--script); color: #0b2a5b; padding: 0 0 4px; outline: none; }
+.typed input::placeholder { font: 400 1.6rem/1 var(--body); color: #a7b2b0; }
+.drop { display: grid; place-items: center; gap: 8px; text-align: center; color: var(--muted); }
+.drop img { max-height: 70%; max-width: 80%; }
+.dlg .bottom { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 18px 16px; }
+.dlg .bottom .right { display: flex; gap: 8px; }
 
 /* resumen */
-aside.sum { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
-@media (max-width: 860px) { aside.sum { position: static; } }
+aside.sum { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--fg); border-radius: 10px; padding: 20px; display: grid; gap: 14px; min-width: 0; }
+@media (max-width: 880px) { aside.sum { position: static; } }
 .sum h2 { margin: 0; font: 600 1.15rem/1.2 var(--display); }
-.sel { background: var(--accent-soft); border-radius: 8px; padding: 12px; display: grid; gap: 3px; }
+.sel { background: var(--brand-soft); border-radius: 8px; padding: 12px; display: grid; gap: 3px; }
 .sel b { font: 600 1.02rem/1.3 var(--display); text-wrap: balance; }
 .sel span { color: var(--muted); font-size: .84rem; }
 dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 12px; font-size: .9rem; }
 dt { color: var(--muted); }
 dd { margin: 0; overflow-wrap: anywhere; }
-dd.miss { color: var(--err); }
-.go { border: 0; border-radius: 8px; background: var(--accent); color: var(--surface); font: 600 1.05rem/1 var(--display); letter-spacing: .02em; padding: 14px 16px; cursor: pointer; }
-.go:disabled { opacity: .55; cursor: not-allowed; }
+dd.miss { color: var(--err); font-weight: 500; }
+.resp { border: 1px solid #e6d35a; background: #fffbe0; color: #4a4320; border-radius: 8px; padding: 12px; display: grid; gap: 8px; font-size: .88rem; }
+.resp b { font: 600 .95rem/1.25 var(--display); color: #3b3518; }
+.resp label { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; cursor: pointer; }
+.resp input { margin-top: 3px; width: 17px; height: 17px; accent-color: var(--fg); flex: none; }
+.go { border: 0; border-radius: 8px; background: var(--cta); color: var(--cta-fg); font: 600 1.05rem/1 var(--display); letter-spacing: .02em; padding: 14px 16px; cursor: pointer; }
+.go:disabled { opacity: .55; cursor: wait; }
 .ghost { border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--fg); font: 500 .9rem/1 var(--body); padding: 10px 12px; cursor: pointer; }
 .msg { font-size: .9rem; margin: 0; min-height: 1.3em; }
 .msg.ok { color: var(--ok); } .msg.err { color: var(--err); }
+.msg ul { margin: 6px 0 0; padding-left: 18px; }
 .note { font-size: .82rem; color: var(--muted); margin: 0; border-top: 1px solid var(--line); padding-top: 12px; }
-.note mark { background: var(--mark); color: #2f3537; padding: 0 3px; border-radius: 2px; }
-.after { display: grid; gap: 4px; font-size: .86rem; color: var(--muted); margin: 0; padding-left: 18px; }
-/* procedimientos */
-.proc { display: grid; gap: 8px; min-width: 0; }
-.proc h3 { margin: 4px 0 0; font: 600 .74rem/1.2 var(--display); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
-.prow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 190px); gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: var(--bg); }
-.prow.solo { grid-template-columns: minmax(0, 1fr); }
-.prow.on { border-color: var(--accent); background: var(--accent-soft); }
-.prow label.pc { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; min-width: 0; }
-.prow input[type=checkbox] { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--accent); flex: none; }
-.prow input[type=text] { padding: 7px 9px; font-size: .92rem; }
-@media (max-width: 520px) { .prow { grid-template-columns: minmax(0, 1fr); } }
-
-/* firmas */
-.pads { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-.pad { display: grid; gap: 6px; min-width: 0; }
-.pad > span { font: 600 .74rem/1.2 var(--display); text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
-.pad .box { position: relative; border: 1.5px dashed var(--line); border-radius: 8px; background: #ffffff; aspect-ratio: 2 / 1; width: 100%; touch-action: none; overflow: hidden; }
-.pad .box.full { position: fixed; z-index: 50; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(94vw, 176vh); max-width: none; border: 2px solid var(--accent); box-shadow: 0 0 0 100vmax rgba(20, 28, 30, .72); }
-.pad .box.full .ph { font-size: 1rem; }
-.fullbar { position: fixed; z-index: 51; left: 50%; transform: translateX(-50%); bottom: max(16px, env(safe-area-inset-bottom, 0px)); display: flex; gap: 10px; }
-.fullbar button { font: 600 1rem/1 var(--display); border-radius: 8px; padding: 12px 18px; cursor: pointer; border: 0; }
-.fullbar .ok { background: var(--accent); color: var(--surface); }
-.fullbar .no { background: var(--surface); color: var(--fg); border: 1px solid var(--line); }
-.pad .box.signed { border-style: solid; border-color: var(--accent); }
-.pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; touch-action: none; }
-.pad .base { position: absolute; left: 14px; right: 14px; bottom: 34px; border-bottom: 1px solid #b9c4c1; pointer-events: none; }
-.pad .ph { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; font-size: .8rem; color: #8a9593; pointer-events: none; }
-.pad .row { display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
-.pad small { color: var(--muted); }
-.mini { border: 1px solid var(--line); border-radius: 7px; background: transparent; color: var(--fg); font: 500 .85rem/1 var(--body); padding: 7px 10px; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
-
-
 <header class="band">
   <div class="wrap">
-    <img src="data:image/png;base64,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" alt="IECO">
+    <img src="data:image/png;base64,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" alt="IECO">
     <div class="t">
       <h1>Consentimientos informados</h1>
-      <p>Escribe los datos una sola vez y descarga el consentimiento ya diligenciado.</p>
+      <p>Llene los datos, firme y descargue el consentimiento listo.</p>
     </div>
   </div>
 </header>
+<div class="stripe"></div>
 
 <main class="wrap">
   <form class="steps" id="frm" autocomplete="off" novalidate>
@@ -160,23 +182,23 @@ dd.miss { color: var(--err); }
         <div class="list" id="list" role="listbox" aria-label="Consentimientos"></div>
       </div>
       <div class="proc" id="procWrap" hidden>
-        <h3>Procedimientos de este consentimiento</h3>
-        <p class="hint" style="margin:0">Marca los que aplican y escribe el diente, cuadrante o zona.</p>
+        <span class="lbl req">Procedimientos de este consentimiento</span>
+        <p class="hint" style="margin:0">Marque al menos uno y escriba el diente, cuadrante o zona.</p>
         <div class="proc" id="proc"></div>
       </div>
       <div class="grid">
-        <label class="f"><span>Fecha</span><input type="date" id="fecha"></label>
-        <label class="f"><span>Hora</span><input type="time" id="hora"></label>
-        <label class="f wide" id="tratWrap"><span>Tratamiento</span><input type="text" id="trat" placeholder="Ej.: Exodoncia del diente 48"></label>
+        <label class="f"><span class="req">Fecha</span><input type="date" id="fecha"></label>
+        <label class="f"><span class="req">Hora</span><input type="time" id="hora"></label>
+        <label class="f wide" id="tratWrap"><span class="req">Tratamiento</span><input type="text" id="trat" placeholder="Ej.: Retiro de corona del diente 21"></label>
       </div>
     </section>
 
     <section class="step" aria-labelledby="h2">
       <h2 id="h2"><span class="n">PASO 2</span>Paciente</h2>
       <div class="grid">
-        <label class="f wide"><span>Nombre completo</span><input type="text" id="pNom" placeholder="Nombres y apellidos"></label>
-        <label class="f"><span>Tipo de documento</span><select id="pTipo"></select></label>
-        <label class="f"><span>Número de documento</span><input type="text" id="pNum" inputmode="numeric" placeholder="Sin puntos ni espacios"></label>
+        <label class="f wide"><span class="req">Nombre completo</span><input type="text" id="pNom" placeholder="Nombres y apellidos"></label>
+        <label class="f"><span class="req">Tipo de documento</span><select id="pTipo"></select></label>
+        <label class="f"><span class="req">Número de documento</span><input type="text" id="pNum" inputmode="numeric" placeholder="Sin puntos ni espacios"></label>
       </div>
     </section>
 
@@ -188,20 +210,20 @@ dd.miss { color: var(--err); }
       </div>
       <p class="hint" id="firmaHint">Los datos del paciente se usan también como los de quien firma.</p>
       <div class="grid" id="resp" hidden>
-        <label class="f wide"><span>Nombre del responsable</span><input type="text" id="rNom" placeholder="Nombres y apellidos"></label>
-        <label class="f"><span>Tipo de documento</span><select id="rTipo"></select></label>
-        <label class="f"><span>Número de documento</span><input type="text" id="rNum" inputmode="numeric"></label>
-        <label class="f wide"><span>Parentesco con el paciente</span><input type="text" id="rPar" placeholder="Madre, padre, hijo(a), cónyuge…"></label>
+        <label class="f wide"><span class="req">Nombre del responsable</span><input type="text" id="rNom" placeholder="Nombres y apellidos"></label>
+        <label class="f"><span class="req">Tipo de documento</span><select id="rTipo"></select></label>
+        <label class="f"><span class="req">Número de documento</span><input type="text" id="rNum" inputmode="numeric"></label>
+        <label class="f wide"><span class="req">Parentesco con el paciente</span><input type="text" id="rPar" placeholder="Madre, padre, hijo(a), cónyuge…"></label>
       </div>
     </section>
 
     <section class="step" aria-labelledby="h4">
       <h2 id="h4"><span class="n">PASO 4</span>Profesional</h2>
       <div class="grid">
-        <label class="f wide"><span>Nombre del profesional</span><input type="text" id="dNom" placeholder="Nombre como debe aparecer"></label>
-        <label class="f"><span>No. de registro profesional</span><input type="text" id="dReg"></label>
-        <label class="f"><span>Tipo de documento</span><select id="dTipo"></select></label>
-        <label class="f"><span>Número de documento</span><input type="text" id="dNum" inputmode="numeric"></label>
+        <label class="f wide"><span class="req">Nombre del profesional</span><input type="text" id="dNom" placeholder="Nombre como debe aparecer"></label>
+        <label class="f"><span class="req">No. de registro profesional</span><input type="text" id="dReg"></label>
+        <label class="f"><span class="req">Tipo de documento</span><select id="dTipo"></select></label>
+        <label class="f"><span class="req">Número de documento</span><input type="text" id="dNum" inputmode="numeric"></label>
       </div>
       <label class="check"><input type="checkbox" id="rec"> Recordar mis datos y mi firma de profesional en este equipo</label>
     </section>
@@ -212,64 +234,99 @@ dd.miss { color: var(--err); }
         <button type="button" id="mAut" aria-pressed="true">Autoriza el procedimiento</button>
         <button type="button" id="mRev" aria-pressed="false">Revoca (no acepta)</button>
       </div>
-      <p class="hint" id="modeHint">Las firmas van en la sección AUTORIZACIÓN del consentimiento.</p>
-      <div class="pads">
-        <div class="pad">
-          <span id="lblPac">Firma del paciente</span>
-          <div class="box" id="boxPac"><div class="base"></div><div class="ph">Firme aquí con la tableta, el lápiz o el dedo</div><canvas id="cvPac" aria-label="Recuadro de firma del paciente"></canvas></div>
-          <div class="row"><small id="stPac">Sin firma</small><span style="display:flex;gap:6px"><button type="button" class="mini" data-big="Pac">Firmar en grande</button><button type="button" class="mini" data-clear="Pac">Borrar firma</button></span></div>
+      <p class="hint" id="modeHint">Los datos y firmas van en la sección AUTORIZACIÓN del consentimiento.</p>
+      <div class="slots">
+        <div class="slot">
+          <span class="lbl req" id="lblPac">Firma del paciente</span>
+          <div class="prev" id="prevPac"><div class="base"></div><span class="ph">Sin firma</span></div>
+          <div class="row"><button type="button" class="btn" data-sign="Pac">Firmar</button><button type="button" class="btn light" data-clear="Pac">Borrar</button></div>
         </div>
-        <div class="pad">
-          <span>Firma del profesional</span>
-          <div class="box" id="boxPro"><div class="base"></div><div class="ph">Firme aquí con la tableta, el lápiz o el dedo</div><canvas id="cvPro" aria-label="Recuadro de firma del profesional"></canvas></div>
-          <div class="row"><small id="stPro">Sin firma</small><span style="display:flex;gap:6px"><button type="button" class="mini" data-big="Pro">Firmar en grande</button><button type="button" class="mini" data-clear="Pro">Borrar firma</button></span></div>
+        <div class="slot">
+          <span class="lbl req">Firma del profesional</span>
+          <div class="prev" id="prevPro"><div class="base"></div><span class="ph">Sin firma</span></div>
+          <div class="row"><button type="button" class="btn" data-sign="Pro">Firmar</button><button type="button" class="btn light" data-clear="Pro">Borrar</button></div>
         </div>
       </div>
-      <p class="hint" style="margin:0">Las firmas son opcionales: si se dejan en blanco, el PDF sale para firmar a mano. Cuando hay al menos una firma, el PDF se descarga cerrado para que no se pueda modificar.</p>
+      <p class="hint" style="margin:0">Al firmar puede escribir el nombre, dibujar la firma con la tableta o cargar una imagen de la firma. El PDF firmado se descarga cerrado para que no se pueda modificar.</p>
     </section>
   </form>
 
   <aside class="sum" aria-labelledby="hs">
     <h2 id="hs">Resumen</h2>
-    <div class="sel" id="selBox"><b id="selT">Elige un consentimiento</b><span id="selA">En el paso 1</span></div>
+    <div class="sel" id="selBox"><b id="selT">Elija un consentimiento</b><span id="selA">En el paso 1</span></div>
     <dl id="dl"></dl>
-    <button class="go" id="go" type="button" disabled>Descargar PDF diligenciado</button>
-    <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    <div class="resp" id="respBox">
+      <b>Revise antes de descargar</b>
+      <span>Es su responsabilidad verificar que los datos del paciente, los procedimientos y las firmas estén correctos antes de descargar y cargar el consentimiento.</span>
+      <label><input type="checkbox" id="okDatos"> Revisé los datos y están correctos</label>
+    </div>
+    <button class="go" id="go" type="button">Descargar consentimiento</button>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
     <button class="ghost" id="nuevo" type="button">Nuevo paciente (limpiar datos del paciente)</button>
-    <ul class="after">
-      <li>Todo se llena desde aquí: datos, procedimientos y firmas.</li>
-      <li>Sin firmas, el PDF queda editable; con firmas, queda cerrado.</li>
-    </ul>
-    <p class="note"><mark>Privacidad</mark> Los datos del paciente no se guardan ni se envían: el documento se arma en este navegador y se borra al cerrar la página.</p>
+    <p class="note">Los campos con <span style="color:var(--err)">*</span> son obligatorios. Los datos del paciente no se guardan ni se envían: el documento se arma en este equipo.</p>
   </aside>
 </main>
-<div class="fullbar" id="fullbar" hidden><button type="button" class="no" id="fbClear">Borrar y repetir</button><button type="button" class="ok" id="fbOk">Listo</button></div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="dlg">
+    <div class="top"><b id="mTitle">Firma</b><button type="button" class="btn light" id="mX" aria-label="Cerrar">Cerrar</button></div>
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab" role="tab" data-tab="texto" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M7 15h10"/></svg>Texto</button>
+      <button type="button" class="tab" role="tab" data-tab="dibujar" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21c3-1 5-4 8-4s3 3 6 2"/><path d="M14 4l6 6-8 8H6v-6z"/></svg>Dibujar</button>
+      <button type="button" class="tab" role="tab" data-tab="imagen" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg>Imagen</button>
+    </div>
+    <div class="area">
+      <div class="canvasBox" id="cbTexto" hidden>
+        <div class="base"></div>
+        <div class="typed"><input type="text" id="typedName" placeholder="Escriba aquí su nombre." aria-label="Nombre para la firma"></div>
+      </div>
+      <div class="canvasBox" id="cbDibujar">
+        <div class="base"></div><div class="ph" id="drawPh">Firme aquí con la tableta, el lápiz o el mouse</div>
+        <canvas id="cvDraw" aria-label="Área para dibujar la firma"></canvas>
+      </div>
+      <div class="canvasBox drop" id="cbImagen" hidden>
+        <img id="imgPrev" alt="" hidden>
+        <span id="imgHint">Cargue una foto o imagen de la firma (fondo blanco)</span>
+        <label class="btn" style="justify-self:center">Elegir imagen<input type="file" id="imgFile" accept="image/*" hidden></label>
+      </div>
+    </div>
+    <div class="bottom">
+      <label class="check" id="saveWrap"><input type="checkbox" id="saveSig"> Guardar la firma en este equipo</label>
+      <span></span>
+      <div class="right"><button type="button" class="btn light" id="mClear">Borrar</button><button type="button" class="btn light" id="mCancel">Cancelar</button><button type="button" class="btn" id="mApply">Aplicar</button></div>
+    </div>
+  </div>
+</div>
 
 <script src="pdf-lib.min.js"></script>
 <script>
 const CATALOG = [{"id": "c001", "area": "Higiene Oral", "title": "APLICACIÓN DE SELLANTES", "ver": "1.0"}, {"id": "c002", "area": "Higiene Oral", "title": "PROMOCIÓN Y MANTENIMIENTO", "ver": "1.0"}, {"id": "c003", "area": "Odontología General", "title": "APLICACIÓN DE SELLANTES", "ver": "1.0"}, {"id": "c004", "area": "Odontología General", "title": "CONTROL", "ver": "1.0"}, {"id": "c005", "area": "Odontología General", "title": "PRIMERA VEZ", "ver": "1.0"}, {"id": "c006", "area": "Odontología General", "title": "PROMOCIÓN Y MANTENIMIENTO", "ver": "1.0"}, {"id": "c007", "area": "Odontología General", "title": "EXODONCIA SIMPLE O QUIRÚRGICA", "ver": "1.0"}, {"id": "c008", "area": "Odontología General", "title": "LECTURA DE RADIOGRAFÍA ODONTOLÓGICA", "ver": "1.0"}, {"id": "c009", "area": "Odontología General", "title": "OPERATORIA IONOMERO DE VIDRIO Y/O RESINA", "ver": "1.0"}, {"id": "c010", "area": "Odontología General", "title": "PRESCRIPCIÓN MÉDICA", "ver": "1.0"}, {"id": "c011", "area": "Odontología General", "title": "PULPECTOMÍA Y/O PULPOTOMÍA", "ver": "1.0"}, {"id": "c012", "area": "Cirugía Oral y Maxilofacial", "title": "CIRUGÍA DE TEJIDOS BLANDOS ORALES", "ver": "1.0"}, {"id": "c013", "area": "Cirugía Oral y Maxilofacial", "title": "CIRUGÍA DENTOALVEOLAR", "ver": "1.0"}, {"id": "c014", "area": "Cirugía Oral y Maxilofacial", "title": "CIRUGÍA PARA EL MANEJO DE INFECCIONES ODONTOGÉNICAS", "ver": "1.0"}, {"id": "c015", "area": "Cirugía Oral y Maxilofacial", "title": "CIRUGÍA RECONSTRUCTIVA OROANTRAL O ORONASAL", "ver": "1.0"}, {"id": "c016", "area": "Cirugía Oral y Maxilofacial", "title": "CONSULTA DE CONTROL POR CIRUGÍA", "ver": "1.0"}, {"id": "c017", "area": "Cirugía Oral y Maxilofacial", "title": "CONSULTA DE PRIMERA VEZ CIRUGÍA", "ver": "1.0"}, {"id": "c018", "area": "Cirugía Oral y Maxilofacial", "title": "IMPLANTOLOGÍA ORAL", "ver": "1.0"}, {"id": "c019", "area": "Endodoncia", "title": "APEXIFICACIÓN", "ver": "1.0"}, {"id": "c020", "area": "Endodoncia", "title": "BLANQUEAMIENTO INTERNO", "ver": "1.0"}, {"id": "c021", "area": "Endodoncia", "title": "CONSULTA DE CONTROL POR ENDODONCIA", "ver": "1.0"}, {"id": "c022", "area": "Endodoncia", "title": "CURETAJE APICAL Y APICECTOMÍA", "ver": "1.0"}, {"id": "c023", "area": "Endodoncia", "title": "CONSULTA DE PRIMERA VEZ POR ENDODONCIA", "ver": "1.0"}, {"id": "c024", "area": "Endodoncia", "title": "DESOBTURACIÓN DE CONDUCTOS", "ver": "1.0"}, {"id": "c025", "area": "Endodoncia", "title": "MANEJO DE PERFORACIONES Y ACCIDENTES ENDODÓNTICOS", "ver": "1.0"}, {"id": "c026", "area": "Endodoncia", "title": "REGENERACIÓN PULPAR", "ver": "1.0"}, {"id": "c027", "area": "Endodoncia", "title": "REMOCIÓN DE RETENEDOR INTRARRADICULAR", "ver": "1.0"}, {"id": "c028", "area": "Endodoncia", "title": "RETRATAMIENTO ENDODÓNTICO", "ver": "1.0"}, {"id": "c029", "area": "Endodoncia", "title": "TRATAMIENTO ENDODÓNTICO CONVENCIONAL", "ver": "1.0"}, {"id": "c030", "area": "Endodoncia", "title": "TRATAMIENTO ENDODÓNTICO EN TRAUMA DENTOALVEOLAR", "ver": "1.0"}, {"id": "c031", "area": "Odontopediatría", "title": "APLICACIÓN DE SELLANTES", "ver": "1.0"}, {"id": "c032", "area": "Odontopediatría", "title": "CONTROL", "ver": "1.0"}, {"id": "c033", "area": "Odontopediatría", "title": "PRIMERA VEZ", "ver": "1.0"}, {"id": "c034", "area": "Odontopediatría", "title": "PROMOCIÓN Y MANTENIMIENTO", "ver": "1.0"}, {"id": "c035", "area": "Odontopediatría", "title": "EXODONCIA SIMPLE O QUIRÚRGICA", "ver": "1.0"}, {"id": "c036", "area": "Odontopediatría", "title": "LECTURA DE RADIOGRAFÍA ODONTOLÓGICA", "ver": "1.0"}, {"id": "c037", "area": "Odontopediatría", "title": "MANEJO CONDUCTUAL EN ODONTOPEDIATRÍA", "ver": "1.0"}, {"id": "c038", "area": "Odontopediatría", "title": "OPERATORIA IONOMERO DE VIDRIO Y/O RESINA", "ver": "1.0"}, {"id": "c039", "area": "Odontopediatría", "title": "PRESCRIPCIÓN MÉDICA", "ver": "1.0"}, {"id": "c040", "area": "Odontopediatría", "title": "PULPECTOMÍA Y/O PULPOTOMÍA", "ver": "1.0"}, {"id": "c041", "area": "Ortodoncia · Aparato de Retención", "title": "ENTREGA Y ADAPTACIÓN DE APARATO DE RETENCIÓN", "ver": "1.0"}, {"id": "c042", "area": "Ortodoncia · Aparato de Retención", "title": "TOMA DE IMPRESIONES PARA APARATO DE RETENCIÓN", "ver": "1.01"}, {"id": "c043", "area": "Ortodoncia", "title": "CONTROL ORTODONCIA", "ver": "1.0"}, {"id": "c044", "area": "Ortodoncia", "title": "PRIMERA VEZ ORTODONCIA", "ver": "1.01"}, {"id": "c045", "area": "Ortodoncia", "title": "TRACCIÓN ORTODÓNTICA DE DIENTES INCLUIDOS", "ver": "1.0"}, {"id": "c046", "area": "Ortodoncia · Ortodoncia con Alineadores", "title": "CONTROL DE ORTODONCIA CON ALINEADORES", "ver": "1.0"}, {"id": "c047", "area": "Ortodoncia · Ortodoncia con Alineadores", "title": "ENTREGA Y ADAPTACIÓN DE ALINEADORES ORTODÓNTICOS", "ver": "1.0"}, {"id": "c048", "area": "Ortodoncia · Ortodoncia con Alineadores", "title": "TOMA DE REGISTROS PARA ORTODONCIA CON ALINEADORES", "ver": "1.01"}, {"id": "c049", "area": "Ortodoncia · Ortodoncia Correctiva", "title": "CEMENTACIÓN DE BRACKETS Y BANDAS (APARATOLOGÍA FIJA) COLOCACIÓN Y ACTIVACIÓN DE ARCOS", "ver": "1.0"}, {"id": "c050", "area": "Ortodoncia · Ortodoncia Correctiva", "title": "CONTROLES Y AJUSTES DE ORTODONCIA FIJA", "ver": "1.01"}, {"id": "c051", "area": "Ortodoncia · Ortodoncia Correctiva", "title": "REPARACIÓN DE ORTODONCIA FIJA (RECEMENTACIÓN DE BRACKET)", "ver": "1.0"}, {"id": "c052", "area": "Ortodoncia · Ortodoncia Correctiva", "title": "RETIRO DE APARATOLOGÍA FIJA", "ver": "1.0"}, {"id": "c053", "area": "Ortodoncia · Ortodoncia Preventiva", "title": "CEMENTACIÓN O INSTALACIÓN DE APARATO ORTODÓNTICO PREVENTIVO", "ver": "1.0"}, {"id": "c054", "area": "Ortodoncia · Ortodoncia Preventiva", "title": "CONTROL DE ORTODONCIA PREVENTIVA", "ver": "1.0"}, {"id": "c055", "area": "Ortodoncia · Ortodoncia Preventiva", "title": "ENTREGA Y ADAPTACIÓN DE APARATO ORTODÓNTICO PREVENTIVO", "ver": "1.01"}, {"id": "c056", "area": "Ortodoncia · Ortodoncia Preventiva", "title": "TOMA DE IMPRESIÓN ORTODONCIA PREVENTIVA", "ver": "1.0"}, {"id": "c057", "area": "Periodoncia", "title": "ALISADO RADICULAR A CAMPO ABIERTO", "ver": "1.0"}, {"id": "c058", "area": "Periodoncia", "title": "ALISADO RADICULAR A CAMPO CERRADO", "ver": "1.0"}, {"id": "c059", "area": "Periodoncia", "title": "AUMENTO DE CORONA CLÍNICA", "ver": "1.0"}, {"id": "c060", "area": "Periodoncia", "title": "CONSULTA DE CONTROL POR PERIODONCIA", "ver": "1.0"}, {"id": "c061", "area": "Periodoncia", "title": "CURETAJE A CAMPO ABIERTO", "ver": "1.0"}, {"id": "c062", "area": "Periodoncia", "title": "CURETAJE A CAMPO CERRADO", "ver": "1.0"}, {"id": "c063", "area": "Periodoncia", "title": "CONSULTA DE PRIMERA VEZ PERIODONCIA", "ver": "1.0"}, {"id": "c064", "area": "Periodoncia", "title": "DRENAJE DE COLECCIÓN TEMPORAL", "ver": "1.0"}, {"id": "c065", "area": "Periodoncia", "title": "GINGIVECTOMÍA", "ver": "1.0"}, {"id": "c066", "area": "Periodoncia", "title": "PLASTIA MUCOGINGIVAL", "ver": "1.0"}, {"id": "c067", "area": "Periodoncia", "title": "PLASTIA PREPROTÉSICA", "ver": "1.0"}, {"id": "c068", "area": "Rehabilitación Oral · Carillas", "title": "APLICACIÓN DE ANESTESIA LOCAL", "ver": "1.0"}, {"id": "c069", "area": "Rehabilitación Oral · Carillas", "title": "CEMENTACIÓN DE CARILLAS", "ver": "1.0"}, {"id": "c070", "area": "Rehabilitación Oral · Carillas", "title": "CONTROL DE CARILLAS", "ver": "1.0"}, {"id": "c071", "area": "Rehabilitación Oral · Carillas", "title": "ELABORACIÓN DIRECTA DE CARILLAS EN RESINA", "ver": "1.01"}, {"id": "c072", "area": "Rehabilitación Oral · Carillas", "title": "PREPARACIÓN DENTAL PARA CARILLAS", "ver": "1.0"}, {"id": "c073", "area": "Rehabilitación Oral · Carillas", "title": "PRUEBA CLÍNICA DE CARILLAS", "ver": "1.0"}, {"id": "c074", "area": "Rehabilitación Oral · Carillas", "title": "REGISTRO DE MORDIDA PARA CARILLAS", "ver": "1.0"}, {"id": "c075", "area": "Rehabilitación Oral · Carillas", "title": "SELECCIÓN DE COLOR PARA CARILLAS", "ver": "1.0"}, {"id": "c076", "area": "Rehabilitación Oral · Carillas", "title": "TEMPORALIZACIÓN DE CARILLAS", "ver": "1.0"}, {"id": "c077", "area": "Rehabilitación Oral · Carillas", "title": "TOMA DE IMPRESIÓN PARA CARILLAS", "ver": "1.0"}, {"id": "c078", "area": "Rehabilitación Oral", "title": "CONSULTA DE CONTROL POR REHABILITACIÓN ORAL", "ver": "1.0"}, {"id": "c079", "area": "Rehabilitación Oral", "title": "CONSULTA DE PRIMERA VEZ POR REHABILITACIÓN ORAL", "ver": "1.01"}, {"id": "c080", "area": "Rehabilitación Oral · Coronas", "title": "APLICACIÓN DE ANESTESIA LOCAL", "ver": "1.0"}, {"id": "c081", "area": "Rehabilitación Oral · Coronas", "title": "CEMENTACIÓN DE CORONA", "ver": "1.0"}, {"id": "c082", "area": "Rehabilitación Oral · Coronas", "title": "CONTROL DE CORONA", "ver": "1.0"}, {"id": "c083", "area": "Rehabilitación Oral · Coronas", "title": "IMPRESIÓN DEFINITIVA PARA CORONA", "ver": "1.0"}, {"id": "c084", "area": "Rehabilitación Oral · Coronas", "title": "PREPARACIÓN DENTAL PARA CORONA", "ver": "1.0"}, {"id": "c085", "area": "Rehabilitación Oral · Coronas", "title": "PRUEBA CLÍNICA DE CORONA", "ver": "1.0"}, {"id": "c086", "area": "Rehabilitación Oral · Coronas", "title": "REGISTRO DE MORDIDA PARA CORONA", "ver": "1.0"}, {"id": "c087", "area": "Rehabilitación Oral · Coronas", "title": "RETIRO DE CORONA", "ver": "1.0"}, {"id": "c088", "area": "Rehabilitación Oral · Coronas", "title": "SELECCIÓN DE COLOR PARA CORONA", "ver": "1.0"}, {"id": "c089", "area": "Rehabilitación Oral · Coronas", "title": "TEMPORALIZACIÓN PARA CORONA", "ver": "1.0"}, {"id": "c090", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "APLICACIÓN DE ANESTESIA LOCAL", "ver": "1.0"}, {"id": "c091", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "CEMENTACIÓN DE INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c092", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "CONTROL DE INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c093", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "IMPRESIÓN PARA INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c094", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "PREPARACIÓN DE CAVIDAD PARA INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c095", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "PRUEBA CLÍNICA DE INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c096", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "REGISTRO DE MORDIDA PARA INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c097", "area": "Rehabilitación Oral · Incrustaciones Dentales", "title": "TEMPORALIZACIÓN PARA INCRUSTACIÓN DENTAL", "ver": "1.0"}, {"id": "c098", "area": "Rehabilitación Oral · Núcleo", "title": "APLICACIÓN DE ANESTESIA LOCAL", "ver": "1.0"}, {"id": "c099", "area": "Rehabilitación Oral · Núcleo", "title": "CEMENTACIÓN DE NÚCLEO COLADO", "ver": "1.0"}, {"id": "c100", "area": "Rehabilitación Oral · Núcleo", "title": "IMPRESIÓN DE CONDUCTO PARA NÚCLEO COLADO", "ver": "1.0"}, {"id": "c101", "area": "Rehabilitación Oral · Núcleo", "title": "PREPARACIÓN DE CONDUCTO PARA NÚCLEO COLADO", "ver": "1.0"}, {"id": "c102", "area": "Rehabilitación Oral · Núcleo", "title": "PRUEBA CLÍNICA DE NÚCLEO COLADO", "ver": "1.0"}, {"id": "c103", "area": "Rehabilitación Oral · Placa Neuromiorrelajante", "title": "CONTROL DE PLACA NEUROMIORRELAJANTE", "ver": "1.0"}, {"id": "c104", "area": "Rehabilitación Oral · Placa Neuromiorrelajante", "title": "ENTREGA DE PLACA NEUROMIORRELAJANTE", "ver": "1.0"}, {"id": "c105", "area": "Rehabilitación Oral · Placa Neuromiorrelajante", "title": "IMPRESIÓN Y REGISTRO DE MORDIDA PARA PLACA NEUROMIORRELAJANTE", "ver": "1.0"}, {"id": "c106", "area": "Rehabilitación Oral · Placa Neuromiorrelajante", "title": "PRUEBA Y AJUSTES OCLUSALES DE PLACA NEUROMIORRELAJANTE", "ver": "1.0"}, {"id": "c107", "area": "Rehabilitación Oral · Poste Fibra de Vidrio", "title": "APLICACIÓN DE ANESTESIA LOCAL", "ver": "1.0"}, {"id": "c108", "area": "Rehabilitación Oral · Poste Fibra de Vidrio", "title": "POSTE DE FIBRA DE VIDRIO", "ver": "1.0"}, {"id": "c109", "area": "Rehabilitación Oral · Prótesis Fija", "title": "APLICACIÓN DE ANESTESIA LOCAL", "ver": "1.0"}, {"id": "c110", "area": "Rehabilitación Oral · Prótesis Fija", "title": "CEMENTACIÓN DE PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c111", "area": "Rehabilitación Oral · Prótesis Fija", "title": "CONTROL DE PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c112", "area": "Rehabilitación Oral · Prótesis Fija", "title": "IMPRESIÓN DEFINITIVA PARA PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c113", "area": "Rehabilitación Oral · Prótesis Fija", "title": "PREPARACIÓN DE PILARES PARA PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c114", "area": "Rehabilitación Oral · Prótesis Fija", "title": "PRUEBA DE ESTRUCTURA PARA PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c115", "area": "Rehabilitación Oral · Prótesis Fija", "title": "REGISTRO DE MORDIDA Y SELECCIÓN DE COLOR PARA PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c116", "area": "Rehabilitación Oral · Prótesis Fija", "title": "TEMPORALIZACIÓN PARA PRÓTESIS FIJA", "ver": "1.0"}, {"id": "c117", "area": "Rehabilitación Oral · Prótesis Removible", "title": "CONTROL DE PRÓTESIS REMOVIBLE", "ver": "1.0"}, {"id": "c118", "area": "Rehabilitación Oral · Prótesis Removible", "title": "ENTREGA DE PRÓTESIS REMOVIBLE", "ver": "1.0"}, {"id": "c119", "area": "Rehabilitación Oral · Prótesis Removible", "title": "PRUEBA DE ENFILADO DE DIENTES PARA PRÓTESIS REMOVIBLE", "ver": "1.0"}, {"id": "c120", "area": "Rehabilitación Oral · Prótesis Removible", "title": "PRUEBA DE ESTRUCTURA Y ORIENTACIÓN DE RODETES PARA PRÓTESIS REMOVIBLE", "ver": "1.0"}, {"id": "c121", "area": "Rehabilitación Oral · Prótesis Removible", "title": "TOMA DE IMPRESIÓN PARA PRÓTESIS REMOVIBLE", "ver": "1.0"}, {"id": "c122", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "COLOCACIÓN DE ADITAMENTOS", "ver": "1.0"}, {"id": "c123", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "CONTROL DE SOBREDENTADURA IMPLANTOSOPORTADA", "ver": "1.0"}, {"id": "c124", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "IMPRESIÓN DEFINITIVA SOBREDENTADURA", "ver": "1.0"}, {"id": "c125", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "IMPRESIÓN PRELIMINAR SOBREDENTADURA", "ver": "1.0"}, {"id": "c126", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "INSTALACIÓN DE SOBREDENTADURA", "ver": "1.0"}, {"id": "c127", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "PRUEBA CLÍNICA DE SOBREDENTADURA", "ver": "1.0"}, {"id": "c128", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "PRUEBA DE ENFILADO SOBREDENTADURA", "ver": "1.0"}, {"id": "c129", "area": "Rehabilitación Oral · Prótesis Sobredentaduras - Implantosoportadas", "title": "RELACIÓN MAXILOMANDIBULAR", "ver": "1.0"}, {"id": "c130", "area": "Rehabilitación Oral · Prótesis Sobreimplantes", "title": "COLOCACIÓN DE PRÓTESIS SOBRE IMPLANTES", "ver": "1.0"}, {"id": "c131", "area": "Rehabilitación Oral · Prótesis Sobreimplantes", "title": "CONTROL DE PRÓTESIS SOBRE IMPLANTES", "ver": "1.0"}, {"id": "c132", "area": "Rehabilitación Oral · Prótesis Sobreimplantes", "title": "IMPRESIÓN DEFINITIVA PARA PRÓTESIS SOBRE IMPLANTES", "ver": "1.0"}, {"id": "c133", "area": "Rehabilitación Oral · Prótesis Sobreimplantes", "title": "PRUEBA DE ESTRUCTURA PARA PRÓTESIS SOBRE IMPLANTES", "ver": "1.0"}, {"id": "c134", "area": "Rehabilitación Oral · Prótesis Sobreimplantes", "title": "REGISTRO MAXILOMANDIBULAR Y SELECCIÓN DE COLOR", "ver": "1.0"}, {"id": "c135", "area": "Rehabilitación Oral · Prótesis Total", "title": "CONTROL DE PRÓTESIS TOTAL", "ver": "1.0"}, {"id": "c136", "area": "Rehabilitación Oral · Prótesis Total", "title": "ENTREGA DE PRÓTESIS TOTAL", "ver": "1.0"}, {"id": "c137", "area": "Rehabilitación Oral · Prótesis Total", "title": "IMPRESIÓN DEFINITIVA PARA PRÓTESIS TOTAL", "ver": "1.0"}, {"id": "c138", "area": "Rehabilitación Oral · Prótesis Total", "title": "IMPRESIÓN PRELIMINAR PARA PRÓTESIS TOTAL", "ver": "1.0"}, {"id": "c139", "area": "Rehabilitación Oral · Prótesis Total", "title": "ORIENTACIÓN DE RODETES PARA PRÓTESIS TOTAL", "ver": "1.0"}, {"id": "c140", "area": "Rehabilitación Oral · Prótesis Total", "title": "PRUEBA DE ENFILADO PARA PRÓTESIS TOTAL", "ver": "1.0"}];
 const MANIFEST = {"c001":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":62.5,"x1":297.6,"y":538.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":337.0,"x1":537.2,"y":538.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":62.5,"x1":297.6,"y":641.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":337.0,"x1":537.2,"y":641.0,"h":792}],"hasTrat":true,"hasRev":true},"c002":{"extra":[{"name":"Educacion_en_Salud_Oral","type":"check","label":"Educación en Salud Oral"},{"name":"Aplicacion_Fluor_en_Barniz","type":"check","label":"Aplicación Flúor en Barniz"},{"name":"Detartraje","type":"check","label":"Detartraje"},{"name":"Profilaxis","type":"check","label":"Profilaxis"},{"name":"Control_de_Placa","type":"check","label":"Control de Placa"}],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":62.5,"x1":297.6,"y":596.6,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":337.0,"x1":537.2,"y":596.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":62.5,"x1":297.6,"y":699.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":337.0,"x1":537.2,"y":699.5,"h":792}],"hasTrat":false,"hasRev":true},"c003":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":510.0,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":510.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":612.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":612.9,"h":792}],"hasTrat":true,"hasRev":true},"c004":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":526.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":526.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":629.3,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":628.8,"h":792}],"hasTrat":true,"hasRev":true},"c005":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":526.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":526.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":629.3,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":628.8,"h":792}],"hasTrat":true,"hasRev":true},"c006":{"extra":[{"name":"Educacion_en","type":"check","label":"Educación en Salud Oral"},{"name":"Aplicacion_Fluor_en","type":"check","label":"Aplicación Flúor en Barniz"},{"name":"Detartraje","type":"check","label":"Detartraje"},{"name":"Profilaxis","type":"check","label":"Profilaxis"},{"name":"Control_de_Placa","type":"check","label":"Control de Placa"}],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":586.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":586.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":688.9,"h":792}],"hasTrat":false,"hasRev":true},"c007":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Exodoncia_Simple","type":"check","label":"Exodoncia Simple"},{"name":"Exodoncia_Simple_Diente","type":"text","label":"Exodoncia Simple","hint":"Diente","row":"Exodoncia_Simple"},{"name":"Exodoncia_Quirurgica","type":"check","label":"Exodoncia Quirúrgica"},{"name":"Exodoncia_Quirurgica_Diente","type":"text","label":"Exodoncia Quirúrgica","hint":"Diente","row":"Exodoncia_Quirurgica"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":430.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":429.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":553.5,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":553.0,"h":792}],"hasTrat":false,"hasRev":true},"c008":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":62.5,"x1":297.6,"y":538.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":337.0,"x1":537.2,"y":538.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":62.5,"x1":297.6,"y":641.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":337.0,"x1":537.2,"y":641.0,"h":792}],"hasTrat":true,"hasRev":true},"c009":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Restauracion_con_Ionomero_de_Vidrio","type":"check","label":"Restauración con Ionómero de Vidrio"},{"name":"Restauracion_con_Ionomero_de_Vidrio_Diente","type":"text","label":"Restauración con Ionómero de Vidrio","hint":"Diente","row":"Restauracion_con_Ionomero_de_Vidrio"},{"name":"Restauracion_con_Resina","type":"check","label":"Restauración con Resina"},{"name":"Restauracion_con_Resina_Diente","type":"text","label":"Restauración con Resina","hint":"Diente","row":"Restauracion_con_Resina"},{"name":"Restauracion_Temporal_Cemento","type":"check","label":"Restauración Temporal (Cemento)"},{"name":"Restauracion_Temporal_Cemento_detalle","type":"text","label":"Restauración Temporal (Cemento)","hint":"Detalle","row":"Restauracion_Temporal_Cemento"},{"name":"Restauracion_Temporal_Cemento_detalle_2","type":"text","label":"Restauración Temporal (Cemento)","hint":"Diente","row":"Restauracion_Temporal_Cemento"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":334.2,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":333.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":457.3,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":456.9,"h":792}],"hasTrat":false,"hasRev":true},"c010":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":572.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":572.8,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":685.2,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":685.6,"h":792}],"hasTrat":true,"hasRev":true},"c011":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Pulpectomia","type":"check","label":"Pulpectomía"},{"name":"Pulpectomia_Diente","type":"text","label":"Pulpectomía","hint":"Diente","row":"Pulpectomia"},{"name":"Pulpotomia","type":"check","label":"Pulpotomía"},{"name":"Pulpotomia_Diente","type":"text","label":"Pulpotomía","hint":"Diente","row":"Pulpotomia"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":320.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":319.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":443.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":443.0,"h":792}],"hasTrat":false,"hasRev":true},"c012":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Frenillectomia_labial","type":"check","label":"Frenillectomía labial"},{"name":"Frenillectomia_lingual","type":"check","label":"Frenillectomía lingual"},{"name":"Biopsia_incisional","type":"check","label":"Biopsia incisional"},{"name":"Biopsia_incisional_Diente_Zona","type":"text","label":"Biopsia incisional","hint":"Diente / Zona","row":"Biopsia_incisional"},{"name":"Biopsias_excisionales","type":"check","label":"Biopsias excisionales"},{"name":"Biopsias_excisionales_Diente_Zona","type":"text","label":"Biopsias excisionales","hint":"Diente / Zona","row":"Biopsias_excisionales"},{"name":"Eliminacion_de_quistes","type":"check","label":"Eliminación de quistes odontogénicos quirúrgico de la celulitis odontogénica"},{"name":"Eliminacion_de_quistes_Diente","type":"text","label":"Eliminación de quistes odontogénicos quirúrgico de la celulitis odontogénica","hint":"Diente","row":"Eliminacion_de_quistes"},{"name":"Manejo_quirurgico_de_tumo_res","type":"check","label":"Manejo quirúrgico de tumores benignos"},{"name":"Manejo_quirurgico_de_tumo_res_Zona","type":"text","label":"Manejo quirúrgico de tumores benignos","hint":"Zona","row":"Manejo_quirurgico_de_tumo_res"},{"name":"Toma_de_muestras_de_tejidos","type":"check","label":"Toma de muestras de tejidos blandos"},{"name":"Toma_de_muestras_de_tejidos_Zona","type":"text","label":"Toma de muestras de tejidos blandos","hint":"Zona","row":"Toma_de_muestras_de_tejidos"},{"name":"Reseccion_de_lesiones_benignas","type":"check","label":"Resección de lesiones benignas"},{"name":"Reseccion_de_lesiones_benignas_Zona","type":"text","label":"Resección de lesiones benignas","hint":"Zona","row":"Reseccion_de_lesiones_benignas"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":91.2,"x1":323.0,"y":440.0,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":337.1,"x1":537.5,"y":440.2,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":91.2,"x1":323.0,"y":563.2,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":337.1,"x1":537.5,"y":563.4,"h":792}],"hasTrat":false,"hasRev":true},"c013":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Exodoncia_Quirurgica","type":"check","label":"Exodoncia Quirúrgica"},{"name":"Exodoncia_Quirurgica_Diente","type":"text","label":"Exodoncia Quirúrgica","hint":"Diente","row":"Exodoncia_Quirurgica"},{"name":"Exodoncia_Simple","type":"check","label":"Exodoncia Simple"},{"name":"Exodoncia_Simple_Diente","type":"text","label":"Exodoncia Simple","hint":"Diente","row":"Exodoncia_Simple"},{"name":"Exodoncia_de_restos_radiculares","type":"check","label":"Exodoncia de restos radiculares"},{"name":"Exodoncia_de_restos_radiculares_Diente","type":"text","label":"Exodoncia de restos radiculares","hint":"Diente","row":"Exodoncia_de_restos_radiculares"},{"name":"Exodoncia_dientes_retenidos_o","type":"check","label":"Exodoncia dientes retenidos o incluidos"},{"name":"Exodoncia_dientes_retenidos_o_Diente","type":"text","label":"Exodoncia dientes retenidos o incluidos","hint":"Diente","row":"Exodoncia_dientes_retenidos_o"},{"name":"Apicectomia","type":"check","label":"Apicectomía"},{"name":"Apicectomia_Diente","type":"text","label":"Apicectomía","hint":"Diente","row":"Apicectomia"},{"name":"Regularizacion_de_Rebordes","type":"check","label":"Regularización de Rebordes"},{"name":"Regularizacion_de_Rebordes_Cuadrante_Diente","type":"text","label":"Regularización de Rebordes","hint":"Cuadrante / Diente","row":"Regularizacion_de_Rebordes"},{"name":"Alveolo_plastia","type":"check","label":"Alveolo plastia"},{"name":"Alveolo_plastia_Cuadrante_Diente","type":"text","label":"Alveolo plastia","hint":"Cuadrante / Diente","row":"Alveolo_plastia"},{"name":"Exposicion_quirurgica_de_dientes","type":"check","label":"Exposición quirúrgica de dientes retenidos"},{"name":"Exposicion_quirurgica_de_dientes_Diente","type":"text","label":"Exposición quirúrgica de dientes retenidos","hint":"Diente","row":"Exposicion_quirurgica_de_dientes"},{"name":"Cirugia_preprotesica","type":"check","label":"Cirugía preprotesica"},{"name":"Cirugia_preprotesica_Cuadrante_Diente","type":"text","label":"Cirugía preprotesica","hint":"Cuadrante / Diente","row":"Cirugia_preprotesica"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":91.2,"x1":323.0,"y":451.5,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":337.1,"x1":537.5,"y":451.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":91.2,"x1":323.0,"y":574.7,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":337.1,"x1":537.5,"y":574.9,"h":792}],"hasTrat":false,"hasRev":true},"c014":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Drenaje_de_Absceso_Dental","type":"check","label":"Drenaje de Absceso Dental"},{"name":"Drenaje_de_Absceso_Dental_Diente","type":"text","label":"Drenaje de Absceso Dental","hint":"Diente","row":"Drenaje_de_Absceso_Dental"},{"name":"Drenaje_Intraoral_o_Extraoral","type":"check","label":"Drenaje Intraoral o Extraoral"},{"name":"Drenaje_Intraoral_o_Extraoral_Diente","type":"text","label":"Drenaje Intraoral o Extraoral","hint":"Diente","row":"Drenaje_Intraoral_o_Extraoral"},{"name":"Desbridamiento_de_Tejidos","type":"check","label":"Desbridamiento de Tejidos Infectados"},{"name":"Desbridamiento_de_Tejidos_Diente","type":"text","label":"Desbridamiento de Tejidos Infectados","hint":"Diente","row":"Desbridamiento_de_Tejidos"},{"name":"Extraccion_de_Foco_Infeccioso","type":"check","label":"Extracción de Foco Infeccioso"},{"name":"Extraccion_de_Foco_Infeccioso_Diente","type":"text","label":"Extracción de Foco Infeccioso","hint":"Diente","row":"Extraccion_de_Foco_Infeccioso"},{"name":"Tratamiento_quirurgico_de_la_celulitis","type":"check","label":"Tratamiento quirúrgico de la celulitis odontogénica"},{"name":"Tratamiento_quirurgico_de_la_celulitis_Diente","type":"text","label":"Tratamiento quirúrgico de la celulitis odontogénica","hint":"Diente","row":"Tratamiento_quirurgico_de_la_celulitis"},{"name":"Manejo_de_infecciones_p_rofundas_y","type":"check","label":"Manejo de infecciones profundas y eliminación de tejidos necróticos"},{"name":"Manejo_de_infecciones_p_rofundas_y_Diente","type":"text","label":"Manejo de infecciones profundas y eliminación de tejidos necróticos","hint":"Diente","row":"Manejo_de_infecciones_p_rofundas_y"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":91.2,"x1":323.0,"y":474.6,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":337.1,"x1":537.5,"y":474.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":91.2,"x1":318.0,"y":597.7,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":337.1,"x1":537.5,"y":598.0,"h":792}],"hasTrat":false,"hasRev":true},"c015":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Cierre_comunicacion_oroantral","type":"check","label":"Cierre comunicación oroantral"},{"name":"Cierre_comunicacion_oroantral_Diente_Zona","type":"text","label":"Cierre comunicación oroantral","hint":"Diente / Zona","row":"Cierre_comunicacion_oroantral"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":302.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":301.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":319.7,"y":425.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":425.0,"h":792}],"hasTrat":false,"hasRev":true},"c016":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":62.5,"x1":297.6,"y":176.6,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":337.0,"x1":537.2,"y":176.6,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":62.5,"x1":297.6,"y":279.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":337.0,"x1":537.2,"y":279.4,"h":792}],"hasTrat":true,"hasRev":true},"c017":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":62.5,"x1":297.6,"y":269.6,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":337.0,"x1":537.2,"y":269.6,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":62.5,"x1":297.6,"y":372.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":337.0,"x1":537.2,"y":372.4,"h":792}],"hasTrat":true,"hasRev":true},"c018":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente_Zona","type":"text","label":"Aplicación de Anestesia","hint":"Diente / Zona","row":"Aplicacion_de_Anestesia"},{"name":"Implante_Unitario","type":"check","label":"Implante Unitario"},{"name":"Implante_Unitario_Zona_Diente","type":"text","label":"Implante Unitario","hint":"Zona Diente","row":"Implante_Unitario"},{"name":"Implante_Multiple","type":"check","label":"Implante Múltiple"},{"name":"Implante_Multiple_Zona_Dientes","type":"text","label":"Implante Múltiple","hint":"Zona Dientes","row":"Implante_Multiple"},{"name":"Injertos_Oseos","type":"check","label":"Injertos Óseos"},{"name":"Injertos_Oseos_Diente_Zona","type":"text","label":"Injertos Óseos","hint":"Diente / Zona","row":"Injertos_Oseos"},{"name":"Regeneracion_Osea","type":"check","label":"Regeneración Ósea"},{"name":"Regeneracion_Osea_Diente_Zona","type":"text","label":"Regeneración Ósea","hint":"Diente / Zona","row":"Regeneracion_Osea"},{"name":"Manejo_Periimplantitis","type":"check","label":"Manejo Periimplantitis"},{"name":"Manejo_Periimplantitis_Zona_Diente","type":"text","label":"Manejo Periimplantitis","hint":"Zona Diente","row":"Manejo_Periimplantitis"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":383.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":383.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":506.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":506.9,"h":792}],"hasTrat":false,"hasRev":true},"c019":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Apexificacion","type":"check","label":"Apexificación"},{"name":"Apexificacion_Diente","type":"text","label":"Apexificación","hint":"Diente","row":"Apexificacion"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":384.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":383.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":507.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":506.9,"h":792}],"hasTrat":false,"hasRev":true},"c020":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Blanqueamiento_Interno","type":"check","label":"Blanqueamiento Interno"},{"name":"Blanqueamiento_Interno_Diente","type":"text","label":"Blanqueamiento Interno","hint":"Diente","row":"Blanqueamiento_Interno"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":187.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":186.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":310.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":309.9,"h":792}],"hasTrat":false,"hasRev":true},"c021":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c022":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Retratamiento_endodontico","type":"check","label":"Retratamiento endodóntico"},{"name":"Retratamiento_endodontico_Diente","type":"text","label":"Retratamiento endodóntico","hint":"Diente","row":"Retratamiento_endodontico"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":447.1,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":447.6,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":570.2,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":570.7,"h":792}],"hasTrat":false,"hasRev":true},"c023":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":613.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":613.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":122.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":122.9,"h":792}],"hasTrat":true,"hasRev":true},"c024":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Desobturacion_de_conductos","type":"check","label":"Desobturación de conductos"},{"name":"Desobturacion_de_conductos_Diente","type":"text","label":"Desobturación de conductos","hint":"Diente","row":"Desobturacion_de_conductos"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":122.4,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":122.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":246.0,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":245.6,"h":792}],"hasTrat":false,"hasRev":true},"c025":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Manejo_de_perforaciones_y","type":"check","label":"Manejo de perforaciones y accidentes endodónticos"},{"name":"Manejo_de_perforaciones_y_Diente","type":"text","label":"Manejo de perforaciones y accidentes endodónticos","hint":"Diente","row":"Manejo_de_perforaciones_y"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":164.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":163.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":287.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":287.0,"h":792}],"hasTrat":false,"hasRev":true},"c026":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Regeneracion_Pulpar","type":"check","label":"Regeneración Pulpar"},{"name":"Regeneracion_Pulpar_Diente","type":"text","label":"Regeneración Pulpar","hint":"Diente","row":"Regeneracion_Pulpar"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":233.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":232.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":356.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":356.0,"h":792}],"hasTrat":false,"hasRev":true},"c027":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Remocion_de_retenedor","type":"check","label":"Remoción de retenedor intrarradicular"},{"name":"Remocion_de_retenedor_Diente","type":"text","label":"Remoción de retenedor intrarradicular","hint":"Diente","row":"Remocion_de_retenedor"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":153.5,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":153.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":277.0,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":276.6,"h":792}],"hasTrat":false,"hasRev":true},"c028":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Retratamiento_endodontico","type":"check","label":"Retratamiento endodóntico"},{"name":"Retratamiento_endodontico_Diente","type":"text","label":"Retratamiento endodóntico","hint":"Diente","row":"Retratamiento_endodontico"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":361.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":360.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":319.7,"y":484.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":483.9,"h":792}],"hasTrat":false,"hasRev":true},"c029":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Endodoncia","type":"check","label":"Endodoncia"},{"name":"Endodoncia_Diente","type":"text","label":"Endodoncia","hint":"Diente","row":"Endodoncia"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":364.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":364.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":487.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":487.9,"h":792}],"hasTrat":false,"hasRev":true},"c030":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Diente","type":"text","label":"Aplicación de Anestesia","hint":"Diente","row":"Aplicacion_de_Anestesia"},{"name":"Tratamiento_endodontico_en_trauma","type":"check","label":"Tratamiento endodóntico en trauma dentoalveolar"},{"name":"Tratamiento_endodontico_en_trauma_Diente_Zona","type":"text","label":"Tratamiento endodóntico en trauma dentoalveolar","hint":"Diente / Zona","row":"Tratamiento_endodontico_en_trauma"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":153.5,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":153.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":277.0,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":276.6,"h":792}],"hasTrat":false,"hasRev":true},"c031":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":510.0,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":510.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":612.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":612.9,"h":792}],"hasTrat":true,"hasRev":true},"c032":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":526.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":526.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":629.3,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":628.8,"h":792}],"hasTrat":true,"hasRev":true},"c033":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":526.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":526.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":629.3,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":628.8,"h":792}],"hasTrat":true,"hasRev":true},"c034":{"extra":[{"name":"Educacion_en","type":"check","label":"Educación en Salud Oral"},{"name":"Aplicacion_Fluor_en","type":"check","label":"Aplicación Flúor en Barniz"},{"name":"Detartraje","type":"check","label":"Detartraje"},{"name":"Profilaxis","type":"check","label":"Profilaxis"},{"name":"Control_de_Placa","type":"check","label":"Control de Placa"}],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":586.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":586.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":688.9,"h":792}],"hasTrat":false,"hasRev":true},"c035":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Exodoncia_Simple","type":"check","label":"Exodoncia Simple"},{"name":"Exodoncia_Simple_Diente","type":"text","label":"Exodoncia Simple","hint":"Diente","row":"Exodoncia_Simple"},{"name":"Exodoncia_Quirurgica","type":"check","label":"Exodoncia Quirúrgica"},{"name":"Exodoncia_Quirurgica_Diente","type":"text","label":"Exodoncia Quirúrgica","hint":"Diente","row":"Exodoncia_Quirurgica"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":430.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":429.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":553.5,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":553.0,"h":792}],"hasTrat":false,"hasRev":true},"c036":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":539.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":539.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":642.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":641.5,"h":792}],"hasTrat":true,"hasRev":true},"c037":{"extra":[{"name":"Comunicacion_y_orientacion_adecuada_a_la","type":"check","label":"Comunicación y orientación adecuada a la edad."},{"name":"Refuerzo_positivo_y_elogio_descriptivo","type":"check","label":"Refuerzo positivo y elogio descriptivo."},{"name":"Decir_Mostrar_Hacer_Tell_Show_Do","type":"check","label":"Decir-Mostrar-Hacer (Tell-Show-Do)."},{"name":"Distraccion","type":"check","label":"Distracción."},{"name":"Preguntar_Decir_Preguntar_Ask_Tell_Ask","type":"check","label":"Preguntar-Decir-Preguntar (Ask-Tell-Ask)."},{"name":"Modelado","type":"check","label":"Modelado."},{"name":"Comunicacion_no_verbal","type":"check","label":"Comunicación no verbal."},{"name":"Desensibilizacion_y_adaptacion_progresiv","type":"check","label":"Desensibilización y adaptación progresiva."},{"name":"Imagenes_o_preparacion_positiva_previa_a","type":"check","label":"Imágenes o preparación positiva previa a la consulta."},{"name":"Tecnicas_de_respiracion_y_relajacion","type":"check","label":"Técnicas de respiración y relajación."},{"name":"Otras_estrategias_de_apoyo_conductual","type":"check","label":"Otras estrategias de apoyo conductual individualizadas."},{"name":"Bloque_de_mordida_o_dispositivo_de_apert","type":"check","label":"Bloque de mordida o dispositivo de apertura bucal."}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":487.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":487.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":610.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":610.9,"h":792}],"hasTrat":false,"hasRev":true},"c038":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Restauracion_con_Ionomero_de_Vidrio","type":"check","label":"Restauración con Ionómero de Vidrio"},{"name":"Restauracion_con_Ionomero_de_Vidrio_Diente","type":"text","label":"Restauración con Ionómero de Vidrio","hint":"Diente","row":"Restauracion_con_Ionomero_de_Vidrio"},{"name":"Restauracion_con_Resina","type":"check","label":"Restauración con Resina"},{"name":"Restauracion_con_Resina_Diente","type":"text","label":"Restauración con Resina","hint":"Diente","row":"Restauracion_con_Resina"},{"name":"Restauracion_Temporal_Cemento","type":"check","label":"Restauración Temporal (Cemento)"},{"name":"Restauracion_Temporal_Cemento_detalle","type":"text","label":"Restauración Temporal (Cemento)","hint":"Detalle","row":"Restauracion_Temporal_Cemento"},{"name":"Restauracion_Temporal_Cemento_detalle_2","type":"text","label":"Restauración Temporal (Cemento)","hint":"Diente","row":"Restauracion_Temporal_Cemento"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":334.2,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":333.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":457.3,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":456.9,"h":792}],"hasTrat":false,"hasRev":true},"c039":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":572.4,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":572.8,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":685.2,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":685.6,"h":792}],"hasTrat":true,"hasRev":true},"c040":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Pulpectomia","type":"check","label":"Pulpectomía"},{"name":"Pulpectomia_Diente","type":"text","label":"Pulpectomía","hint":"Diente","row":"Pulpectomia"},{"name":"Pulpotomia","type":"check","label":"Pulpotomía"},{"name":"Pulpotomia_Diente","type":"text","label":"Pulpotomía","hint":"Diente","row":"Pulpotomia"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":320.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":319.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":443.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":443.0,"h":792}],"hasTrat":false,"hasRev":true},"c041":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c042":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":574.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":573.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":676.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":676.0,"h":792}],"hasTrat":true,"hasRev":true},"c043":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":551.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":550.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":653.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":653.0,"h":792}],"hasTrat":true,"hasRev":true},"c044":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":522.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":521.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":624.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":624.0,"h":792}],"hasTrat":true,"hasRev":true},"c045":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Traccion_ortodontica","type":"check","label":"Tracción ortodóntica"},{"name":"Traccion_ortodontica_Diente","type":"text","label":"Tracción ortodóntica","hint":"Diente","row":"Traccion_ortodontica"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":236.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":236.7,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":359.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":359.8,"h":792}],"hasTrat":false,"hasRev":true},"c046":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":585.0,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":585.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":687.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":687.9,"h":792}],"hasTrat":true,"hasRev":true},"c047":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":574.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":573.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":676.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":676.0,"h":792}],"hasTrat":true,"hasRev":true},"c048":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":597.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":596.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":699.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":699.0,"h":792}],"hasTrat":true,"hasRev":true},"c049":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":655.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":655.6,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":156.3,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":155.8,"h":792}],"hasTrat":true,"hasRev":true},"c050":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":551.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":550.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":653.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":653.0,"h":792}],"hasTrat":true,"hasRev":true},"c051":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c052":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c053":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":586.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":586.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c054":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":585.0,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":585.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":687.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":687.9,"h":792}],"hasTrat":true,"hasRev":true},"c055":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c056":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c057":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Alisado_Radicular_Campo_Abierto","type":"check","label":"Alisado Radicular Campo Abierto"},{"name":"Alisado_Radicular_Campo_Abierto_Diente_Cuadrante","type":"text","label":"Alisado Radicular Campo Abierto","hint":"Diente / Cuadrante","row":"Alisado_Radicular_Campo_Abierto"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":236.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":236.7,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":359.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":359.8,"h":792}],"hasTrat":false,"hasRev":true},"c058":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Alisado_Radicular_Campo_Cerrado","type":"check","label":"Alisado Radicular Campo Cerrado"},{"name":"Alisado_Radicular_Campo_Cerrado_Diente_Cuadrante","type":"text","label":"Alisado Radicular Campo Cerrado","hint":"Diente / Cuadrante","row":"Alisado_Radicular_Campo_Cerrado"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":262.2,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":262.6,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":385.3,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":385.8,"h":792}],"hasTrat":false,"hasRev":true},"c059":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Aumento_de_Corona_Clinica","type":"check","label":"Aumento de Corona Clínica"},{"name":"Aumento_de_Corona_Clinica_Diente","type":"text","label":"Aumento de Corona Clínica","hint":"Diente","row":"Aumento_de_Corona_Clinica"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":198.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":198.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":321.5,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":321.9,"h":792}],"hasTrat":false,"hasRev":true},"c060":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":682.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":681.6,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":178.3,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":178.8,"h":792}],"hasTrat":true,"hasRev":true},"c061":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Curetaje_a_Campo_Abierto","type":"check","label":"Curetaje a Campo Abierto"},{"name":"Curetaje_a_Campo_Abierto_Diente_Cuadrante","type":"text","label":"Curetaje a Campo Abierto","hint":"Diente / Cuadrante","row":"Curetaje_a_Campo_Abierto"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":198.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":198.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":321.5,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":321.9,"h":792}],"hasTrat":false,"hasRev":true},"c062":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Curetaje_a_Campo_Cerrado","type":"check","label":"Curetaje a Campo Cerrado"},{"name":"Curetaje_a_Campo_Cerrado_Diente_Cuadrante","type":"text","label":"Curetaje a Campo Cerrado","hint":"Diente / Cuadrante","row":"Curetaje_a_Campo_Cerrado"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":210.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":209.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":333.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":333.0,"h":792}],"hasTrat":false,"hasRev":true},"c063":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":585.0,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":585.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":687.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":687.9,"h":792}],"hasTrat":true,"hasRev":true},"c064":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Drenaje_de_Coleccion_Periodontal","type":"check","label":"Drenaje de Colección Periodontal"},{"name":"Drenaje_de_Coleccion_Periodontal_Diente","type":"text","label":"Drenaje de Colección Periodontal","hint":"Diente","row":"Drenaje_de_Coleccion_Periodontal"}],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":233.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":232.8,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":356.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":356.0,"h":792}],"hasTrat":false,"hasRev":true},"c065":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Gingivectomia","type":"check","label":"Gingivectomía"},{"name":"Gingivectomia_Diente_Cuadrante","type":"text","label":"Gingivectomía","hint":"Diente / Cuadrante","row":"Gingivectomia"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":236.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":236.7,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":359.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":359.8,"h":792}],"hasTrat":false,"hasRev":true},"c066":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Plastia_Mucogingival","type":"check","label":"Plastia Mucogingival"},{"name":"Plastia_Mucogingival_Diente_Zona","type":"text","label":"Plastia Mucogingival","hint":"Diente / Zona","row":"Plastia_Mucogingival"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":337.3,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":337.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":460.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":460.9,"h":792}],"hasTrat":false,"hasRev":true},"c067":{"extra":[{"name":"Aplicacion_de_Anestesia","type":"check","label":"Aplicación de Anestesia"},{"name":"Aplicacion_de_Anestesia_Cuadrante","type":"text","label":"Aplicación de Anestesia","hint":"Cuadrante","row":"Aplicacion_de_Anestesia"},{"name":"Plastia_Preprotesica","type":"check","label":"Plastia Preprotésica"},{"name":"Plastia_Preprotesica_Diente_Cuadrante","type":"text","label":"Plastia Preprotésica","hint":"Diente / Cuadrante","row":"Plastia_Preprotesica"}],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":175.4,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":175.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":298.5,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":298.9,"h":792}],"hasTrat":false,"hasRev":true},"c068":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":572.4,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":572.0,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":685.2,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":684.7,"h":792}],"hasTrat":true,"hasRev":true},"c069":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":544.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":543.6,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":656.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":656.9,"h":792}],"hasTrat":true,"hasRev":true},"c070":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":509.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":509.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":622.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":621.9,"h":792}],"hasTrat":true,"hasRev":true},"c071":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":521.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":520.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":633.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":633.9,"h":792}],"hasTrat":true,"hasRev":true},"c072":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":537.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":537.9,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":650.2,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":650.7,"h":792}],"hasTrat":true,"hasRev":true},"c073":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":475.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":474.6,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":587.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":587.9,"h":792}],"hasTrat":true,"hasRev":true},"c074":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":509.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":509.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":622.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":621.9,"h":792}],"hasTrat":true,"hasRev":true},"c075":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":521.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":520.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":633.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":633.9,"h":792}],"hasTrat":true,"hasRev":true},"c076":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":509.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":509.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":622.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":621.9,"h":792}],"hasTrat":true,"hasRev":true},"c077":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":509.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":509.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":622.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":621.9,"h":792}],"hasTrat":true,"hasRev":true},"c078":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":562.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":562.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":664.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":664.9,"h":792}],"hasTrat":true,"hasRev":true},"c079":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":585.0,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":585.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":687.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":687.9,"h":792}],"hasTrat":true,"hasRev":true},"c080":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":578.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":578.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":691.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":690.9,"h":792}],"hasTrat":true,"hasRev":true},"c081":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true},"c082":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":520.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":519.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":643.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":642.6,"h":792}],"hasTrat":true,"hasRev":true},"c083":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":539.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":539.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":662.2,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":662.7,"h":792}],"hasTrat":true,"hasRev":true},"c084":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":531.4,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":531.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":654.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":654.6,"h":792}],"hasTrat":true,"hasRev":true},"c085":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":547.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":546.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":670.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":669.6,"h":792}],"hasTrat":true,"hasRev":true},"c086":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c087":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":1,"x0":62.5,"x1":297.6,"y":367.3,"h":792},{"sec":"autoriza","who":"profesional","page":1,"x0":337.0,"x1":537.2,"y":367.3,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":62.5,"x1":297.6,"y":490.8,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":337.0,"x1":537.2,"y":490.8,"h":792}],"hasTrat":true,"hasRev":true},"c088":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c089":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c090":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":578.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":578.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":691.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":690.9,"h":792}],"hasTrat":true,"hasRev":true},"c091":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c092":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":533.3,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":533.8,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":646.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":646.5,"h":792}],"hasTrat":true,"hasRev":true},"c093":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c094":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":544.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":543.6,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":656.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":656.9,"h":792}],"hasTrat":true,"hasRev":true},"c095":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":498.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":497.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":610.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":610.9,"h":792}],"hasTrat":true,"hasRev":true},"c096":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":521.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":520.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":633.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":633.9,"h":792}],"hasTrat":true,"hasRev":true},"c097":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":509.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":509.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":622.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":621.9,"h":792}],"hasTrat":true,"hasRev":true},"c098":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":578.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":578.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":691.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":690.9,"h":792}],"hasTrat":true,"hasRev":true},"c099":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c100":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c101":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":555.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":555.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":668.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":667.9,"h":792}],"hasTrat":true,"hasRev":true},"c102":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":521.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":520.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":633.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":633.9,"h":792}],"hasTrat":true,"hasRev":true},"c103":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c104":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c105":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":568.3,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":567.8,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":681.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":680.6,"h":792}],"hasTrat":true,"hasRev":true},"c106":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":532.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":532.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":645.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":644.9,"h":792}],"hasTrat":true,"hasRev":true},"c107":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":578.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":578.6,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":691.4,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":690.9,"h":792}],"hasTrat":true,"hasRev":true},"c108":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":177.0,"h":792},{"sec":"autoriza","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":177.5,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":290.3,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.0,"y":289.8,"h":792}],"hasTrat":true,"hasRev":true},"c109":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":590.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":589.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":702.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":702.9,"h":792}],"hasTrat":true,"hasRev":true},"c110":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c111":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c112":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":539.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":539.5,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":662.2,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":662.7,"h":792}],"hasTrat":true,"hasRev":true},"c113":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true},"c114":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":547.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":546.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":670.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":669.6,"h":792}],"hasTrat":true,"hasRev":true},"c115":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true},"c116":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c117":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c118":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":565.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":565.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c119":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":565.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":565.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c120":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":578.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":578.6,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":701.3,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":701.7,"h":792}],"hasTrat":true,"hasRev":true},"c121":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":565.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":565.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c122":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":567.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":566.7,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":690.3,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":689.8,"h":792}],"hasTrat":true,"hasRev":true},"c123":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true},"c124":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":592.4,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":591.9,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":149.4,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":148.9,"h":792}],"hasTrat":true,"hasRev":true},"c125":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":578.1,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":578.6,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":701.3,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":701.7,"h":792}],"hasTrat":true,"hasRev":true},"c126":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true},"c127":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":531.4,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":531.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":654.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":654.6,"h":792}],"hasTrat":true,"hasRev":true},"c128":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c129":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":567.1,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":566.7,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":690.3,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":689.8,"h":792}],"hasTrat":true,"hasRev":true},"c130":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":565.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":565.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c131":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":577.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":577.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":700.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":700.6,"h":792}],"hasTrat":true,"hasRev":true},"c132":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":589.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":588.5,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":122.4,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":122.9,"h":792}],"hasTrat":true,"hasRev":true},"c133":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":579.3,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":579.7,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":702.4,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":702.9,"h":792}],"hasTrat":true,"hasRev":true},"c134":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":601.2,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":601.6,"h":792},{"sec":"revoca","who":"profesional","page":1,"x0":336.9,"x1":537.1,"y":135.1,"h":792},{"sec":"revoca","who":"paciente","page":1,"x0":90.7,"x1":324.7,"y":135.6,"h":792}],"hasTrat":true,"hasRev":true},"c135":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":543.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":542.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":666.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":665.6,"h":792}],"hasTrat":true,"hasRev":true},"c136":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true},"c137":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":551.0,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":550.5,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":674.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":673.7,"h":792}],"hasTrat":true,"hasRev":true},"c138":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":565.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":565.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c139":{"extra":[],"sigs":[{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":565.5,"h":792},{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":565.9,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":689.1,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":688.6,"h":792}],"hasTrat":true,"hasRev":true},"c140":{"extra":[],"sigs":[{"sec":"autoriza","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":554.5,"h":792},{"sec":"autoriza","who":"profesional","page":0,"x0":336.9,"x1":537.0,"y":554.0,"h":792},{"sec":"revoca","who":"profesional","page":0,"x0":336.9,"x1":537.1,"y":677.1,"h":792},{"sec":"revoca","who":"paciente","page":0,"x0":90.7,"x1":324.7,"y":677.6,"h":792}],"hasTrat":true,"hasRev":true}};
 const TIPOS = [["CC","Cédula de ciudadanía"],["TI","Tarjeta de identidad"],["CE","Cédula de extranjería"],["RC","Registro civil"],["PA","Pasaporte"],["PPT","Permiso por protección temporal"]];
+const INK = "#0b2a5b";
 const $ = id => document.getElementById(id);
 const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const nice = t => t.toLowerCase().replace(/(^|[\s(\/-])(\p{L})/gu, (m, a, b) => a + b.toUpperCase())
   .replace(/\b(De|Del|La|Las|Los|El|En|Y|O|Por|Para|Con|A|Sobre)\b/g, w => w.toLowerCase()).replace(/^(\p{L})/u, c => c.toUpperCase());
+const clean = s => s.replace(/\.$/, "");
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+const inFrame = window.parent !== window;
 
-let state = { id: null, area: "Todas", firma: "paciente", mode: "autoriza" };
+let state = { id: null, area: "Todas", firma: "paciente", mode: "autoriza", tried: false };
+const sigs = { Pac: null, Pro: null };   // { url, ratio }
 
-for (const id of ["pTipo", "rTipo", "dTipo"]) {
-  $(id).innerHTML = TIPOS.map(([v, l]) => `<option value="${v}">${v} · ${l}</option>`).join("");
-}
-$("rTipo").value = "CC";
-
-// fecha y hora actuales
-(function () {
+for (const id of ["pTipo", "rTipo", "dTipo"]) $(id).innerHTML = TIPOS.map(([v, l]) => `<option value="${v}">${v} · ${l}</option>`).join("");
+function nowFields(withDate) {
   const d = new Date(), p = n => String(n).padStart(2, "0");
-  $("fecha").value = `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+  if (withDate) $("fecha").value = `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
   $("hora").value = `${p(d.getHours())}:${p(d.getMinutes())}`;
-})();
+}
+nowFields(true);
 
-// especialidades
+// ---------- selector de consentimiento ----------
 const areaTop = a => a.split(" · ")[0];
 const AREAS = ["Todas", ...new Set(CATALOG.map(c => areaTop(c.area)))];
 $("areas").innerHTML = AREAS.map(a => `<button type="button" class="chip" data-a="${a}" aria-pressed="${a === "Todas"}">${a}</button>`).join("");
@@ -279,38 +336,34 @@ $("areas").addEventListener("click", e => {
   for (const c of $("areas").children) c.setAttribute("aria-pressed", c === b);
   renderList();
 });
-
 function renderList() {
   const q = norm($("q").value.trim());
   const items = CATALOG.filter(c => (state.area === "Todas" || areaTop(c.area) === state.area) && (!q || norm(c.title + " " + c.area).includes(q)));
-  if (!items.length) { $("list").innerHTML = `<div class="empty">No hay consentimientos con ese nombre. Prueba con otra palabra.</div>`; return; }
+  if (!items.length) { $("list").innerHTML = `<div class="empty">No hay consentimientos con ese nombre. Pruebe con otra palabra.</div>`; return; }
   const groups = {};
   for (const c of items) (groups[c.area] ||= []).push(c);
   $("list").innerHTML = Object.entries(groups).map(([a, cs]) =>
     `<div class="grp">${a}</div>` + cs.map(c =>
-      `<button type="button" class="doc" role="option" data-id="${c.id}" aria-selected="${c.id === state.id}"><span>${nice(c.title)}</span><small>V${c.ver}</small></button>`).join("")
-  ).join("");
+      `<button type="button" class="doc" role="option" data-id="${c.id}" aria-selected="${c.id === state.id}"><span>${nice(c.title)}</span><small>V${c.ver}</small></button>`).join("")).join("");
 }
 $("q").addEventListener("input", renderList);
 $("list").addEventListener("click", e => {
   const b = e.target.closest(".doc"); if (!b) return;
   state.id = b.dataset.id;
   for (const d of $("list").querySelectorAll(".doc")) d.setAttribute("aria-selected", d === b);
-  renderDoc();
-  update();
+  renderDoc(); update();
 });
 
-// procedimientos propios de cada consentimiento
-const clean = s => s.replace(/\.$/, "");
+// ---------- procedimientos propios de cada consentimiento ----------
+const man = () => MANIFEST[state.id] || { extra: [], sigs: [], hasTrat: false, hasRev: false };
 function renderDoc() {
-  const m = MANIFEST[state.id] || { extra: [], hasTrat: true, hasRev: true };
-  const checks = m.extra.filter(e => e.type === "check");
-  const texts = m.extra.filter(e => e.type === "text");
-  $("procWrap").hidden = !m.extra.length;
+  const m = man();
+  const checks = m.extra.filter(e => e.type === "check"), texts = m.extra.filter(e => e.type === "text");
+  $("procWrap").hidden = !checks.length;
   $("proc").innerHTML = checks.map(c => {
     const ts = texts.filter(t => t.row === c.name);
-    const inputs = ts.map(t => `<input type="text" data-f="${t.name}" placeholder="${t.hint || "Diente"}" aria-label="${clean(c.label)}: ${t.hint || "detalle"}">`).join("");
-    return `<div class="prow${ts.length ? "" : " solo"}"><label class="pc"><input type="checkbox" data-f="${c.name}"><span>${clean(c.label)}</span></label>${ts.length ? `<div style="display:grid;gap:6px">${inputs}</div>` : ""}</div>`;
+    const inputs = ts.map(t => `<input type="text" data-f="${t.name}" placeholder="${esc(t.hint || "Diente")}" aria-label="${esc(clean(c.label))}: ${esc(t.hint || "detalle")}">`).join("");
+    return `<div class="prow${ts.length ? "" : " solo"}" data-row="${c.name}"><label class="pc"><input type="checkbox" data-f="${c.name}"><span>${esc(clean(c.label))}</span></label>${ts.length ? `<div style="display:grid;gap:6px">${inputs}</div>` : ""}</div>`;
   }).join("");
   $("tratWrap").hidden = !m.hasTrat;
   $("modeWrap").hidden = !m.hasRev;
@@ -331,203 +384,275 @@ function procValues() {
   return { checks, texts };
 }
 
-// autoriza o revoca
+// ---------- autoriza / revoca y quién firma ----------
 function setMode(m) {
   state.mode = m;
   $("mAut").setAttribute("aria-pressed", m === "autoriza");
   $("mRev").setAttribute("aria-pressed", m === "revoca");
   $("modeHint").textContent = m === "autoriza"
-    ? "Las firmas y datos van en la sección AUTORIZACIÓN del consentimiento."
-    : "Las firmas y datos van en la sección REVOCACIÓN: el paciente no acepta el procedimiento.";
+    ? "Los datos y firmas van en la sección AUTORIZACIÓN del consentimiento."
+    : "Los datos y firmas van en la sección REVOCACIÓN: el paciente no acepta el procedimiento.";
   update();
 }
 $("mAut").onclick = () => setMode("autoriza");
 $("mRev").onclick = () => setMode("revoca");
-
-// recuadros de firma (tableta de firmas, lápiz, dedo o mouse)
-function makePad(key) {
-  const cv = $("cv" + key), box = $("box" + key), ctx = cv.getContext("2d");
-  let strokes = [], cur = null;
-  function size() {
-    const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
-    if (!r.width) return;
-    cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
-    draw();
-  }
-  function draw() {
-    const d = window.devicePixelRatio || 1, W = cv.width / d, H = cv.height / d, k = W / 330;
-    ctx.setTransform(d * W, 0, 0, d * H, 0, 0); ctx.clearRect(0, 0, 1, 1);
-    ctx.save(); ctx.setTransform(d, 0, 0, d, 0, 0);
-    const X = q => q.x * W, Y = q => q.y * H;
-    ctx.strokeStyle = "#0b2a5b"; ctx.lineCap = "round"; ctx.lineJoin = "round";
-    for (const s of strokes) {
-      for (let i = 1; i < s.length; i++) {
-        ctx.lineWidth = (1.4 + 2.2 * (s[i].p || .5)) * k;
-        ctx.beginPath(); ctx.moveTo(X(s[i - 1]), Y(s[i - 1])); ctx.lineTo(X(s[i]), Y(s[i])); ctx.stroke();
-      }
-      if (s.length === 1) { ctx.beginPath(); ctx.arc(X(s[0]), Y(s[0]), 1.5 * k, 0, 7); ctx.fillStyle = "#0b2a5b"; ctx.fill(); }
-    }
-    ctx.restore();
-  }
-  const pt = e => { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height, p: e.pressure && e.pointerType === "pen" ? e.pressure : .5 }; };
-  cv.addEventListener("pointerdown", e => { e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = [pt(e)]; strokes.push(cur); draw(); });
-  cv.addEventListener("pointermove", e => {
-    if (!cur) return; e.preventDefault();
-    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
-    for (const ev of evs) cur.push(pt(ev));
-    draw();
-  });
-  const end = () => { if (cur) { cur = null; changed(); } };
-  cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end); cv.addEventListener("lostpointercapture", end);
-  function changed() {
-    box.classList.toggle("signed", strokes.length > 0);
-    $("st" + key).textContent = strokes.length ? "Firmado" : "Sin firma";
-    if (key === "Pro") saveProSig();
-    update();
-  }
-  new ResizeObserver(size).observe(cv); size();
-  return {
-    box, redraw: size,
-    has: () => strokes.length > 0,
-    clear() { strokes = []; draw(); changed(); },
-    data: () => JSON.stringify(strokes),
-    load(json) { try { strokes = JSON.parse(json) || []; } catch (e) { strokes = []; } if (strokes.flat().some(q => q.x > 1.5 || q.y > 1.5)) strokes = []; draw(); box.classList.toggle("signed", strokes.length > 0); $("st" + key).textContent = strokes.length ? "Firmado (guardada en este equipo)" : "Sin firma"; },
-    // imagen PNG recortada a la firma, con fondo transparente
-    png() {
-      const RW = 330, RH = 165;
-      const S = strokes.map(s => s.map(q => ({ x: q.x * RW, y: q.y * RH, p: q.p })));
-      const pts = S.flat(); if (!pts.length) return null;
-      const pad = 6, xs = pts.map(p => p.x), ys = pts.map(p => p.y);
-      const x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, w = Math.max(...xs) - x0 + pad, h = Math.max(...ys) - y0 + pad;
-      const k = 3, c = document.createElement("canvas"); c.width = Math.ceil(w * k); c.height = Math.ceil(h * k);
-      const g = c.getContext("2d"); g.scale(k, k); g.translate(-x0, -y0);
-      g.strokeStyle = "#0b2a5b"; g.fillStyle = "#0b2a5b"; g.lineCap = "round"; g.lineJoin = "round";
-      for (const s of S) {
-        for (let i = 1; i < s.length; i++) { g.lineWidth = 1.4 + 2.2 * (s[i].p || .5); g.beginPath(); g.moveTo(s[i - 1].x, s[i - 1].y); g.lineTo(s[i].x, s[i].y); g.stroke(); }
-        if (s.length === 1) { g.beginPath(); g.arc(s[0].x, s[0].y, 1.5, 0, 7); g.fill(); }
-      }
-      return { url: c.toDataURL("image/png"), ratio: w / h };
-    },
-  };
-}
-const pads = { Pac: makePad("Pac"), Pro: makePad("Pro") };
-document.addEventListener("click", e => { const b = e.target.closest("[data-clear]"); if (b) pads[b.dataset.clear].clear(); });
-// firmar en grande: el recuadro ocupa casi toda la pantalla, para aprovechar toda la tableta de firma
-let bigKey = null;
-function closeBig() {
-  if (!bigKey) return;
-  const box = pads[bigKey].box; box.classList.remove("full"); box.style.width = ""; box.style.top = "";
-  $("fullbar").hidden = true; $("fullbar").style.top = ""; $("fullbar").style.bottom = "";
-  const k = bigKey; bigKey = null; document.body.style.overflow = "";
-  requestAnimationFrame(() => pads[k].redraw());
-}
-document.addEventListener("click", e => {
-  const b = e.target.closest("[data-big]"); if (!b) return;
-  bigKey = b.dataset.big;
-  const box = pads[bigKey].box, bar = $("fullbar"), r = box.getBoundingClientRect();
-  box.classList.add("full"); bar.hidden = false;
-  if (window.parent !== window) {
-    // dentro de la página de IECO el marco es tan alto como el programa: se ubica donde está el recuadro
-    const w = Math.min(window.innerWidth * 0.94, 1000), h = w / 2, cy = r.top + r.height / 2;
-    Object.assign(box.style, { width: w + "px", top: Math.max(h / 2 + 8, cy) + "px" });
-    Object.assign(bar.style, { bottom: "auto", top: (Math.max(h / 2 + 8, cy) + h / 2 + 12) + "px" });
-  } else {
-    document.body.style.overflow = "hidden";
-  }
-  requestAnimationFrame(() => pads[bigKey].redraw());
-});
-$("fbOk").onclick = closeBig;
-$("fbClear").onclick = () => bigKey && pads[bigKey].clear();
-document.addEventListener("keydown", e => { if (e.key === "Escape") closeBig(); });
-function saveProSig() {
-  try { if ($("rec").checked && pads.Pro) localStorage.setItem("ieco-firma-profesional", pads.Pro.data()); } catch (e) {}
-}
-
-// quién firma
 function setFirma(v) {
   state.firma = v;
   $("fPac").setAttribute("aria-pressed", v === "paciente");
   $("fRes").setAttribute("aria-pressed", v === "responsable");
   $("resp").hidden = v !== "responsable";
-  $("firmaHint").textContent = v === "paciente"
-    ? "Los datos del paciente se usan también como los de quien firma."
-    : "Escribe los datos de quien firma en nombre del paciente.";
+  $("firmaHint").textContent = v === "paciente" ? "Los datos del paciente se usan también como los de quien firma." : "Escriba los datos de quien firma en nombre del paciente.";
   $("lblPac").textContent = v === "paciente" ? "Firma del paciente" : "Firma del responsable";
   update();
 }
 $("fPac").onclick = () => setFirma("paciente");
 $("fRes").onclick = () => setFirma("responsable");
 
-// recordar profesional (solo en este navegador)
+// ---------- recordar profesional (solo en este equipo) ----------
 const DOC_KEYS = ["dNom", "dReg", "dTipo", "dNum"];
-try {
-  const s = JSON.parse(localStorage.getItem("ieco-profesional") || "null");
-  if (s) { for (const k of DOC_KEYS) if (s[k]) $(k).value = s[k]; $("rec").checked = true; }
-} catch (e) {}
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} },
+};
 function saveDoc() {
-  try {
-    if ($("rec").checked) { localStorage.setItem("ieco-profesional", JSON.stringify(Object.fromEntries(DOC_KEYS.map(k => [k, $(k).value])))); saveProSig(); }
-    else { localStorage.removeItem("ieco-profesional"); localStorage.removeItem("ieco-firma-profesional"); }
-  } catch (e) {}
+  if ($("rec").checked) {
+    store.set("ieco-profesional", JSON.stringify(Object.fromEntries(DOC_KEYS.map(k => [k, $(k).value]))));
+    if (sigs.Pro) store.set("ieco-firma-pro", JSON.stringify(sigs.Pro));
+  } else { store.del("ieco-profesional"); store.del("ieco-firma-pro"); }
 }
-try { const sg = localStorage.getItem("ieco-firma-profesional"); if (sg && $("rec").checked) pads.Pro.load(sg); } catch (e) {}
 $("rec").addEventListener("change", saveDoc);
+try {
+  const s = JSON.parse(store.get("ieco-profesional") || "null");
+  if (s) { for (const k of DOC_KEYS) if (s[k]) $(k).value = s[k]; $("rec").checked = true; }
+  const f = JSON.parse(store.get("ieco-firma-pro") || "null");
+  if (f && f.url && f.url.startsWith("data:image/png")) sigs.Pro = f;
+} catch (e) {}
 
+// ---------- ventana de firma: Texto / Dibujar / Imagen ----------
+let who = null, tab = "dibujar", strokes = [], cur = null, imgSig = null;
+const cv = $("cvDraw"), ctx = cv.getContext("2d");
+function sizeCanvas() {
+  const r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; if (!r.width) return;
+  cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d); drawStrokes();
+}
+function drawStrokes(g = ctx, W, H, lw = 1) {
+  const d = g === ctx ? (window.devicePixelRatio || 1) : 1;
+  W = W || cv.width / d; H = H || cv.height / d;
+  const k = W / 600;
+  g.save(); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, W, H);
+  g.strokeStyle = INK; g.fillStyle = INK; g.lineCap = "round"; g.lineJoin = "round";
+  for (const s of strokes) {
+    for (let i = 1; i < s.length; i++) {
+      g.lineWidth = (1.6 + 3 * (s[i].p || .5)) * k * lw;
+      g.beginPath(); g.moveTo(s[i - 1].x * W, s[i - 1].y * H); g.lineTo(s[i].x * W, s[i].y * H); g.stroke();
+    }
+    if (s.length === 1) { g.beginPath(); g.arc(s[0].x * W, s[0].y * H, 2 * k * lw, 0, 7); g.fill(); }
+  }
+  g.restore();
+  $("drawPh").hidden = strokes.length > 0;
+}
+const pt = e => { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height, p: e.pointerType === "pen" && e.pressure ? e.pressure : .5 }; };
+cv.addEventListener("pointerdown", e => { e.preventDefault(); cv.setPointerCapture(e.pointerId); cur = [pt(e)]; strokes.push(cur); drawStrokes(); });
+cv.addEventListener("pointermove", e => { if (!cur) return; e.preventDefault(); for (const ev of (e.getCoalescedEvents ? e.getCoalescedEvents() : [e])) cur.push(pt(ev)); drawStrokes(); });
+for (const ev of ["pointerup", "pointercancel", "lostpointercapture"]) cv.addEventListener(ev, () => { cur = null; });
+new ResizeObserver(sizeCanvas).observe(cv);
+
+function setTab(t) {
+  tab = t;
+  for (const b of document.querySelectorAll(".tab")) b.setAttribute("aria-selected", b.dataset.tab === t);
+  $("cbTexto").hidden = t !== "texto"; $("cbDibujar").hidden = t !== "dibujar"; $("cbImagen").hidden = t !== "imagen";
+  if (t === "dibujar") requestAnimationFrame(sizeCanvas);
+  if (t === "texto") setTimeout(() => $("typedName").focus(), 30);
+}
+for (const b of document.querySelectorAll(".tab")) b.onclick = () => setTab(b.dataset.tab);
+
+function openSign(key, btn) {
+  who = key; strokes = []; imgSig = null; drawStrokes();
+  $("imgPrev").hidden = true; $("imgHint").hidden = false; $("imgFile").value = "";
+  $("mTitle").textContent = key === "Pro" ? "Firma del profesional" : (state.firma === "paciente" ? "Firma del paciente" : "Firma del responsable");
+  $("typedName").value = key === "Pro" ? $("dNom").value.trim() : (state.firma === "paciente" ? $("pNom").value.trim() : $("rNom").value.trim());
+  $("saveWrap").hidden = key !== "Pro"; $("saveSig").checked = $("rec").checked;
+  const m = $("modal"); m.hidden = false;
+  if (inFrame) {
+    // dentro de la página de IECO el marco es tan alto como el programa: la ventana se abre a la altura del botón
+    m.classList.add("inframe");
+    const y = btn ? btn.getBoundingClientRect().top + window.scrollY : 0;
+    m.style.paddingTop = Math.max(16, y - 260) + "px";
+  }
+  setTab("dibujar");
+}
+function closeSign() { $("modal").hidden = true; who = null; }
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-sign]"); if (s) openSign(s.dataset.sign, s);
+  const c = e.target.closest("[data-clear]"); if (c) { sigs[c.dataset.clear] = null; if (c.dataset.clear === "Pro") store.del("ieco-firma-pro"); renderSigs(); update(); }
+});
+$("mX").onclick = closeSign; $("mCancel").onclick = closeSign;
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("modal").hidden) closeSign(); });
+$("mClear").onclick = () => {
+  if (tab === "dibujar") { strokes = []; drawStrokes(); }
+  if (tab === "texto") { $("typedName").value = ""; $("typedName").focus(); }
+  if (tab === "imagen") { imgSig = null; $("imgPrev").hidden = true; $("imgHint").hidden = false; $("imgFile").value = ""; }
+};
+
+// imagen: se quita el fondo claro para que la firma quede transparente
+$("imgFile").addEventListener("change", () => {
+  const f = $("imgFile").files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    const im = new Image();
+    im.onload = () => {
+      const k = Math.min(1, 1400 / im.width), w = Math.round(im.width * k), h = Math.round(im.height * k);
+      const c = document.createElement("canvas"); c.width = w; c.height = h;
+      const g = c.getContext("2d"); g.drawImage(im, 0, 0, w, h);
+      const data = g.getImageData(0, 0, w, h), px = data.data;
+      let x0 = w, y0 = h, x1 = 0, y1 = 0;
+      for (let i = 0; i < px.length; i += 4) {
+        const l = (px[i] + px[i + 1] + px[i + 2]) / 3;
+        if (l > 200) px[i + 3] = 0; else { px[i + 3] = Math.min(255, (200 - l) * 2.2); const p = i / 4, x = p % w, y = (p / w) | 0; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      }
+      if (x1 <= x0) { $("imgHint").textContent = "No se encontró una firma en la imagen. Use una foto con fondo blanco."; return; }
+      g.putImageData(data, 0, 0);
+      const out = document.createElement("canvas"); out.width = x1 - x0 + 10; out.height = y1 - y0 + 10;
+      out.getContext("2d").drawImage(c, x0 - 5, y0 - 5, out.width, out.height, 0, 0, out.width, out.height);
+      imgSig = { url: out.toDataURL("image/png"), ratio: out.width / out.height };
+      $("imgPrev").src = imgSig.url; $("imgPrev").hidden = false; $("imgHint").hidden = true;
+    };
+    im.src = rd.result;
+  };
+  rd.readAsDataURL(f);
+});
+
+async function buildSig() {
+  if (tab === "dibujar") {
+    if (!strokes.length) return null;
+    const W = 600, H = 250, pts = strokes.flat();
+    const xs = pts.map(q => q.x * W), ys = pts.map(q => q.y * H), pad = 8;
+    const x0 = Math.min(...xs) - pad, y0 = Math.min(...ys) - pad, w = Math.max(...xs) - x0 + pad, h = Math.max(...ys) - y0 + pad;
+    const s = 3, c = document.createElement("canvas"); c.width = Math.ceil(w * s); c.height = Math.ceil(h * s);
+    const g = c.getContext("2d"); g.scale(s, s); g.translate(-x0, -y0);
+    g.strokeStyle = INK; g.fillStyle = INK; g.lineCap = "round"; g.lineJoin = "round";
+    for (const st of strokes) {
+      for (let i = 1; i < st.length; i++) { g.lineWidth = 1.6 + 3 * (st[i].p || .5); g.beginPath(); g.moveTo(st[i - 1].x * W, st[i - 1].y * H); g.lineTo(st[i].x * W, st[i].y * H); g.stroke(); }
+      if (st.length === 1) { g.beginPath(); g.arc(st[0].x * W, st[0].y * H, 2, 0, 7); g.fill(); }
+    }
+    return { url: c.toDataURL("image/png"), ratio: w / h };
+  }
+  if (tab === "texto") {
+    const name = $("typedName").value.trim(); if (!name) return null;
+    try { await document.fonts.load('600 80px "Dancing Script"'); } catch (e) {}
+    const c = document.createElement("canvas"), g = c.getContext("2d");
+    g.font = '600 80px "Dancing Script", "Segoe Script", cursive';
+    const w = Math.ceil(g.measureText(name).width) + 30, h = 120;
+    c.width = w; c.height = h;
+    g.font = '600 80px "Dancing Script", "Segoe Script", cursive'; g.fillStyle = INK; g.textBaseline = "alphabetic";
+    g.fillText(name, 15, 88);
+    return { url: c.toDataURL("image/png"), ratio: w / h };
+  }
+  return imgSig;
+}
+$("mApply").onclick = async () => {
+  const s = await buildSig();
+  if (!s) {
+    $("mApply").textContent = tab === "texto" ? "Escriba el nombre" : tab === "imagen" ? "Cargue una imagen" : "Firme primero";
+    setTimeout(() => $("mApply").textContent = "Aplicar", 1600); return;
+  }
+  sigs[who] = s;
+  if (who === "Pro") {
+    if ($("saveSig").checked) { $("rec").checked = true; saveDoc(); } else store.del("ieco-firma-pro");
+  }
+  closeSign(); renderSigs(); update();
+};
+function renderSigs() {
+  for (const k of ["Pac", "Pro"]) {
+    const box = $("prev" + k), s = sigs[k];
+    box.classList.toggle("done", !!s);
+    box.innerHTML = `<div class="base"></div>` + (s ? `<img src="${s.url}" alt="Firma">` : `<span class="ph">Sin firma</span>`);
+    box.classList.toggle("bad", state.tried && !s);
+  }
+}
+
+// ---------- valores para el PDF ----------
 const v = id => $(id).value.trim();
 function fecha() { const [y, m, d] = v("fecha").split("-"); return y ? `${d}/${m}/${y}` : ""; }
-function hora() {
-  const [h, m] = v("hora").split(":"); if (!h) return "";
-  const H = +h; return `${(H % 12) || 12}:${m} ${H < 12 ? "a. m." : "p. m."}`;
-}
-
+function hora() { const [h, m] = v("hora").split(":"); if (!h) return ""; const H = +h; return `${(H % 12) || 12}:${m} ${H < 12 ? "a. m." : "p. m."}`; }
 function values() {
   const res = state.firma === "responsable";
   const fN = res ? v("rNom") : v("pNom"), fT = res ? v("rTipo") : v("pTipo"), fD = res ? v("rNum") : v("pNum");
-  const docProf = [v("dTipo"), v("dNum")].filter(Boolean).join(" ");
   const P = state.mode === "revoca" ? "Revocacion_" : "Autorizacion_";
   return {
     Fecha: fecha(), Hora: hora(),
     Nombre_firmante: fN, Tipo_documento_firmante: fT, Numero_documento_firmante: fD,
     Nombre_paciente: v("pNom"), Tipo_documento_paciente: v("pTipo"), Numero_documento_paciente: v("pNum"),
-    Tratamiento: v("trat"),
-    Profesional_que_explica: v("dNom"),
+    Tratamiento: v("trat"), Profesional_que_explica: v("dNom"),
     [P + "Tipo_documento_responsable"]: fT, [P + "Numero_documento_responsable"]: fD,
     [P + "Parentesco_responsable"]: res ? v("rPar") : "",
     [P + "Nombre_profesional"]: v("dNom"), [P + "Registro_profesional"]: v("dReg"),
-    [P + "Documento_profesional"]: v("dNum") ? docProf : "",
+    [P + "Documento_profesional"]: v("dNum") ? `${v("dTipo")} ${v("dNum")}` : "",
   };
 }
 
+// ---------- campos obligatorios ----------
 function missing() {
-  const m = [];
-  if (!state.id) m.push("Consentimiento");
-  if (!v("pNom")) m.push("Nombre del paciente");
-  if (!v("pNum")) m.push("Documento del paciente");
-  if (state.firma === "responsable" && !v("rNom")) m.push("Nombre del responsable");
-  if (!v("dNom")) m.push("Nombre del profesional");
+  const m = [], m2 = (label, el) => m.push({ label, el });
+  const md = man();
+  if (!state.id) m2("Consentimiento", $("list"));
+  if (state.id && md.extra.some(e => e.type === "check")) {
+    const pv = procValues(), on = Object.entries(pv.checks).filter(([, x]) => x).map(([k]) => k);
+    if (!on.length) m2("Al menos un procedimiento", $("proc"));
+    for (const k of on) {
+      const row = $("proc").querySelector(`[data-row="${k}"]`), ins = [...row.querySelectorAll("input[type=text]")];
+      if (ins.length && !ins.some(i => i.value.trim())) m2(`Diente o zona de: ${row.querySelector("span").textContent}`, ins[0]);
+    }
+  }
+  if (!v("fecha")) m2("Fecha", $("fecha"));
+  if (!v("hora")) m2("Hora", $("hora"));
+  if (state.id && md.hasTrat && !v("trat")) m2("Tratamiento", $("trat"));
+  if (!v("pNom")) m2("Nombre del paciente", $("pNom"));
+  if (!v("pNum")) m2("Documento del paciente", $("pNum"));
+  if (state.firma === "responsable") {
+    if (!v("rNom")) m2("Nombre del responsable", $("rNom"));
+    if (!v("rNum")) m2("Documento del responsable", $("rNum"));
+    if (!v("rPar")) m2("Parentesco del responsable", $("rPar"));
+  }
+  if (!v("dNom")) m2("Nombre del profesional", $("dNom"));
+  if (!v("dReg")) m2("Registro profesional", $("dReg"));
+  if (!v("dNum")) m2("Documento del profesional", $("dNum"));
+  if (!sigs.Pac) m2(state.firma === "paciente" ? "Firma del paciente" : "Firma del responsable", $("prevPac"));
+  if (!sigs.Pro) m2("Firma del profesional", $("prevPro"));
+  if (!$("okDatos").checked) m2("Confirmar que revisó los datos", $("respBox"));
   return m;
+}
+function markMissing() {
+  for (const el of document.querySelectorAll(".bad")) el.classList.remove("bad");
+  if (!state.tried) return;
+  for (const x of missing()) x.el && x.el.classList.add("bad");
 }
 
 function update() {
   const c = CATALOG.find(x => x.id === state.id);
-  $("selT").textContent = c ? nice(c.title) : "Elige un consentimiento";
+  $("selT").textContent = c ? nice(c.title) : "Elija un consentimiento";
   $("selA").textContent = c ? `${c.area} · V${c.ver}` : "En el paso 1";
-  const x = values(), esc = s => s.replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
-  const row = (k, val, req) => `<dt>${k}</dt><dd class="${!val && req ? "miss" : ""}">${val ? esc(val) : (req ? "Falta" : "—")}</dd>`;
+  const x = values(), pv = procValues(), n = Object.values(pv.checks).filter(Boolean).length;
+  const row = (k, val, req = true) => `<dt>${k}</dt><dd class="${!val && req ? "miss" : ""}">${val ? esc(val) : (req ? "Falta" : "—")}</dd>`;
   $("dl").innerHTML =
-    row("Fecha", `${x.Fecha} ${x.Hora}`.trim(), true) +
-    row("Paciente", x.Nombre_paciente, true) +
-    row("Documento", x.Numero_documento_paciente ? `${x.Tipo_documento_paciente} ${x.Numero_documento_paciente}` : "", true) +
-    row("Firma", state.firma === "paciente" ? (x.Nombre_paciente ? "El paciente" : "") : (x.Nombre_firmante ? `${x.Nombre_firmante}${v("rPar") ? " (" + v("rPar") + ")" : ""}` : ""), true) +
-    row("Profesional", x.Profesional_que_explica, true) +
-    row("Registro", v("dReg"), false) +
-    (MANIFEST[state.id] && MANIFEST[state.id].extra.length ? row("Procedimientos", (() => { const n = Object.values(procValues().checks).filter(Boolean).length; return n ? `${n} marcado${n > 1 ? "s" : ""}` : ""; })(), false) : "") +
+    row("Fecha", `${x.Fecha} ${x.Hora}`.trim()) +
+    row("Paciente", x.Nombre_paciente) +
+    row("Documento", x.Numero_documento_paciente ? `${x.Tipo_documento_paciente} ${x.Numero_documento_paciente}` : "") +
+    row("Firma", state.firma === "paciente" ? (x.Nombre_paciente ? "El paciente" : "") : (v("rNom") ? `${v("rNom")}${v("rPar") ? " (" + v("rPar") + ")" : ""}` : "")) +
+    row("Profesional", x.Profesional_que_explica) +
+    row("Registro", v("dReg")) +
+    (man().extra.length ? row("Procedimientos", n ? `${n} marcado${n > 1 ? "s" : ""}` : "") : "") +
     row("Sección", state.mode === "revoca" ? "Revocación" : "Autorización", false) +
-    row("Firmas", [pads.Pac.has() ? (state.firma === "paciente" ? "Paciente" : "Responsable") : "", pads.Pro.has() ? "Profesional" : ""].filter(Boolean).join(" y ") || "", false);
-  $("go").disabled = missing().length > 0;
-  $("go").title = missing().length ? "Falta: " + missing().join(", ") : "";
+    row("Firmas", sigs.Pac && sigs.Pro ? "Completas" : [sigs.Pac ? "Paciente" : "", sigs.Pro ? "Profesional" : ""].filter(Boolean).join(" ") ? `Falta ${!sigs.Pac ? "paciente" : "profesional"}` : "");
+  // las firmas: fila especial
+  const dds = $("dl").querySelectorAll("dd"); const last = dds[dds.length - 1];
+  if (sigs.Pac && sigs.Pro) last.className = ""; else { last.className = "miss"; last.textContent = !sigs.Pac && !sigs.Pro ? "Falta" : `Falta la del ${!sigs.Pac ? (state.firma === "paciente" ? "paciente" : "responsable") : "profesional"}`; }
+  markMissing();
 }
 $("frm").addEventListener("input", () => { update(); if ($("rec").checked) saveDoc(); });
+$("frm").addEventListener("change", () => update());
+$("okDatos").addEventListener("change", update);
 $("frm").addEventListener("submit", e => e.preventDefault());
 
 $("nuevo").onclick = () => {
@@ -535,74 +660,66 @@ $("nuevo").onclick = () => {
   $("pTipo").value = "CC"; $("rTipo").value = "CC"; setFirma("paciente"); setMode("autoriza");
   for (const el of $("proc").querySelectorAll("input")) { if (el.type === "checkbox") el.checked = false; else el.value = ""; }
   for (const r of $("proc").querySelectorAll(".prow")) r.classList.remove("on");
-  pads.Pac.clear(); if (!$("rec").checked) pads.Pro.clear();
-  const d = new Date(), p = n => String(n).padStart(2, "0");
-  $("hora").value = `${p(d.getHours())}:${p(d.getMinutes())}`;
-  $("msg").textContent = "Listo para el siguiente paciente."; $("msg").className = "msg ok";
-  update(); $("pNom").focus();
+  sigs.Pac = null; if (!$("rec").checked) sigs.Pro = null;
+  $("okDatos").checked = false; state.tried = false; nowFields(false);
+  renderSigs(); update();
+  $("msg").className = "msg ok"; $("msg").textContent = "Listo para el siguiente paciente."; $("pNom").focus();
 };
 
-
-
+// ---------- generar y descargar ----------
 const fileSafe = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^\w .-]+/g, " ").replace(/\s+/g, " ").trim();
-
 $("go").onclick = async () => {
-  const m = missing(); if (m.length) return;
+  const msg = $("msg"); state.tried = true; renderSigs();
+  const m = missing();
+  if (m.length) {
+    markMissing();
+    msg.className = "msg err";
+    msg.innerHTML = `${m.length > 1 ? "Faltan" : "Falta"} ${m.length} dato${m.length > 1 ? "s" : ""} obligatorio${m.length > 1 ? "s" : ""}:<ul>${m.slice(0, 8).map(x => `<li>${esc(x.label)}</li>`).join("")}${m.length > 8 ? `<li>y ${m.length - 8} más</li>` : ""}</ul>`;
+    if (m[0].el && m[0].el.scrollIntoView) m[0].el.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (m[0].el && m[0].el.focus) setTimeout(() => m[0].el.focus({ preventScroll: true }), 300);
+    return;
+  }
   const c = CATALOG.find(x => x.id === state.id);
-  const msg = $("msg"); msg.className = "msg"; msg.textContent = "Preparando el documento…";
-  $("go").disabled = true;
+  msg.className = "msg"; msg.textContent = "Preparando el documento…"; $("go").disabled = true;
   try {
     const res = await fetch(`pdf/${c.id}.pdf`);
-    if (!res.ok) throw new Error("No se pudo abrir el formato.");
+    if (!res.ok) throw new Error("formato");
     const pdf = await PDFLib.PDFDocument.load(await res.arrayBuffer());
-    const form = pdf.getForm();
-    const names = new Set(form.getFields().map(f => f.getName()));
-    for (const [k, val] of Object.entries(values())) {
-      if (val && names.has(k)) { try { form.getTextField(k).setText(val); } catch (e) {} }
-    }
+    const form = pdf.getForm(), names = new Set(form.getFields().map(f => f.getName()));
+    for (const [k, val] of Object.entries(values())) if (val && names.has(k)) { try { form.getTextField(k).setText(val); } catch (e) {} }
     const pv = procValues();
-    for (const [k, on] of Object.entries(pv.checks)) { if (on && names.has(k)) { try { form.getCheckBox(k).check(); } catch (e) {} } }
-    for (const [k, val] of Object.entries(pv.texts)) { if (names.has(k)) { try { form.getTextField(k).setText(val); } catch (e) {} } }
-    // estampar firmas sobre su línea
-    const m = MANIFEST[c.id] || { sigs: [] };
-    let signed = false;
-    for (const [who, pad] of [["paciente", pads.Pac], ["profesional", pads.Pro]]) {
-      const img = pad.png(); if (!img) continue;
-      const line = m.sigs.find(s => s.sec === state.mode && s.who === who); if (!line) continue;
-      const png = await pdf.embedPng(img.url);
+    for (const [k, on] of Object.entries(pv.checks)) if (on && names.has(k)) { try { form.getCheckBox(k).check(); } catch (e) {} }
+    for (const [k, val] of Object.entries(pv.texts)) if (names.has(k)) { try { form.getTextField(k).setText(val); } catch (e) {} }
+    const md = MANIFEST[c.id] || { sigs: [] };
+    for (const [w, s] of [["paciente", sigs.Pac], ["profesional", sigs.Pro]]) {
+      const line = md.sigs.find(x => x.sec === state.mode && x.who === w); if (!line || !s) continue;
+      const png = await pdf.embedPng(s.url);
       const maxW = (line.x1 - line.x0) * 0.8, maxH = 26;
-      let h = maxH, w = h * img.ratio; if (w > maxW) { w = maxW; h = w / img.ratio; }
-      const page = pdf.getPage(line.page);
-      page.drawImage(png, { x: line.x0 + (line.x1 - line.x0 - w) / 2, y: line.h - line.y - 3, width: w, height: h });
-      signed = true;
+      let h = maxH, wd = h * s.ratio; if (wd > maxW) { wd = maxW; h = wd / s.ratio; }
+      pdf.getPage(line.page).drawImage(png, { x: line.x0 + (line.x1 - line.x0 - wd) / 2, y: line.h - line.y - 3, width: wd, height: h });
     }
-    // con firmas: todos los campos quedan de solo lectura para que el documento firmado no se modifique
-    if (signed) for (const f of form.getFields()) { try { f.enableReadOnly(); } catch (e) {} }
+    for (const f of form.getFields()) { try { f.enableReadOnly(); } catch (e) {} }
     const bytes = await pdf.save();
-    const name = `${fileSafe(nice(c.title))} - ${fileSafe(v("pNom"))} - ${fecha().replaceAll("/", "-")}${state.mode === "revoca" ? " - REVOCACION" : ""}${signed ? " - firmado" : ""}.pdf`;
+    const name = `${fileSafe(nice(c.title))} - ${fileSafe(v("pNom"))} - ${fecha().replaceAll("/", "-")}${state.mode === "revoca" ? " - REVOCACION" : ""}.pdf`;
     const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
-    const a = document.createElement("a"); a.href = url; a.download = name;
-    document.body.appendChild(a); a.click(); a.remove();
+    const a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
     msg.className = "msg ok"; msg.textContent = `Descargado: ${name}`;
+    $("okDatos").checked = false; update();
   } catch (e) {
-    msg.className = "msg err";
-    msg.textContent = e && e.code === "declined" ? "Descarga cancelada." :
-      e && e.code === "rate_limited" ? "Ya hay una descarga esperando confirmación." :
-      "No se pudo generar el PDF. Revisa la conexión a internet e inténtalo otra vez.";
-  } finally { $("go").disabled = missing().length > 0; }
+    msg.className = "msg err"; msg.textContent = "No se pudo generar el PDF. Revise la conexión a internet e inténtelo otra vez.";
+  } finally { $("go").disabled = false; }
 };
 
-renderList(); update();
+renderList(); renderSigs(); update();
 
-// Si el programa está dentro de otra página (Claro), le avisa su alto para que el marco se ajuste solo.
+// Si el programa está dentro de la página de IECO (Claro), le avisa su alto para que el marco se ajuste solo.
 (function () {
-  if (window.parent === window) return;
+  if (!inFrame) return;
   const send = () => window.parent.postMessage({ iecoConsentHeight: document.documentElement.scrollHeight }, "*");
   try { new ResizeObserver(send).observe(document.body); } catch (e) {}
   window.addEventListener("load", send); setTimeout(send, 500);
 })();
 </script>
-
 </body>
 </html>
