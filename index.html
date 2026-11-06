@@ -166,21 +166,21 @@ dd.miss { color: var(--err); font-weight: 500; }
 .credit b { font: 600 .92rem/1.2 var(--display); letter-spacing: .02em; }
 .credit span { color: color-mix(in srgb, var(--band-fg) 70%, transparent); }
 .credit .ver { font-variant-numeric: tabular-nums; border: 1px solid color-mix(in srgb, var(--band-fg) 35%, transparent); border-radius: 999px; padding: 3px 10px; }
-/* franjas neón a los lados: solo en pantallas anchas, en el espacio libre fuera del contenido */
+/* franjas neón azul celeste a los lados: solo en pantallas anchas, en el espacio libre fuera del contenido */
 .neon { position: fixed; top: 0; bottom: 0; width: calc((100vw - 1120px) / 2); pointer-events: none; z-index: 0; overflow: hidden; display: none; }
 .neon.l { left: 0; } .neon.r { right: 0; transform: scaleX(-1); }
 @media (min-width: 1260px) { .neon { display: block; } }
 .neon i { position: absolute; top: -10%; bottom: -10%; width: 3px; border-radius: 3px;
-  background: linear-gradient(180deg, #ff2d55, #ff9f0a, #ffd60a, #30d158, #64d2ff, #0a84ff, #bf5af2, #ff2d55);
+  background: linear-gradient(180deg, rgba(56,189,248,.15), #38bdf8, #bae6fd, #38bdf8, rgba(56,189,248,.15), rgba(56,189,248,.15));
   background-size: 100% 300%; animation: run 6s linear infinite; opacity: .85; }
 .neon i::after { content: ""; position: absolute; inset: 0 -6px; border-radius: 8px; background: inherit; background-size: inherit; animation: inherit; filter: blur(9px); opacity: .7; }
 .neon i:nth-child(1) { left: 22%; animation-duration: 7s; }
 .neon i:nth-child(2) { left: 46%; width: 2px; animation-duration: 5s; animation-direction: reverse; opacity: .6; }
 .neon i:nth-child(3) { left: 70%; animation-duration: 9s; opacity: .75; }
-.neon b { position: absolute; height: 2px; left: 22%; right: 30%; background: linear-gradient(90deg, transparent, #64d2ff, #bf5af2, transparent); background-size: 300% 100%; animation: runx 4s linear infinite; filter: drop-shadow(0 0 6px #64d2ff); opacity: .7; }
+.neon b { position: absolute; height: 2px; left: 22%; right: 30%; background: linear-gradient(90deg, transparent, #38bdf8, #bae6fd, #38bdf8, transparent); background-size: 300% 100%; animation: runx 4s linear infinite; filter: drop-shadow(0 0 6px #38bdf8); opacity: .7; }
 .neon b:nth-of-type(1) { top: 24%; } .neon b:nth-of-type(2) { top: 58%; left: 46%; right: 8%; animation-duration: 5.5s; } .neon b:nth-of-type(3) { top: 82%; animation-duration: 6.5s; }
-.neon s { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #64d2ff; box-shadow: 0 0 10px 3px #64d2ff; animation: pulse 2.4s ease-in-out infinite; text-decoration: none; }
-.neon s:nth-of-type(1) { top: calc(24% - 3px); left: calc(22% - 3px); } .neon s:nth-of-type(2) { top: calc(58% - 3px); left: calc(46% - 3px); background: #bf5af2; box-shadow: 0 0 10px 3px #bf5af2; animation-delay: .8s; } .neon s:nth-of-type(3) { top: calc(82% - 3px); left: calc(70% - 3px); background: #30d158; box-shadow: 0 0 10px 3px #30d158; animation-delay: 1.6s; }
+.neon s { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #7dd3fc; box-shadow: 0 0 10px 3px #38bdf8; animation: pulse 2.4s ease-in-out infinite; text-decoration: none; }
+.neon s:nth-of-type(1) { top: calc(24% - 3px); left: calc(22% - 3px); } .neon s:nth-of-type(2) { top: calc(58% - 3px); left: calc(46% - 3px); animation-delay: .8s; } .neon s:nth-of-type(3) { top: calc(82% - 3px); left: calc(70% - 3px); animation-delay: 1.6s; }
 @keyframes run { from { background-position: 0 0; } to { background-position: 0 300%; } }
 @keyframes runx { from { background-position: 0 0; } to { background-position: 300% 0; } }
 @keyframes pulse { 0%, 100% { opacity: .35; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.15); } }
